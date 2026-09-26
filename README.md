@@ -15,7 +15,7 @@ A juicy, over-the-top pizza clicker game. Tap the pizza, build a kitchen empire,
 ## Features
 
 - Real CSS-built pizza: pan crust, bubbling cheese, sauce bleed, slice cuts, rising steam, and a bobbing wooden board.
-- 16 kitchen upgrades, 9 toppings, 4 legendary perks, 27 achievements, chef ranks.
+- 16 kitchen upgrades, 9 toppings, 4 legendary perks, 33 achievements, chef ranks.
 - **Combo multiplier** — chain taps for x2/x3/x5 tap power at 10/20/30 combo.
 - **Golden Pizza** events — click the flying 🥇 pizza for a big payout.
 - **Random kitchen events** — Oven Surges, Rival Pizzerias, Pizza Rats, Topping Jackpots and more, each with buff countdown chips over the pizza.
@@ -25,6 +25,17 @@ A juicy, over-the-top pizza clicker game. Tap the pizza, build a kitchen empire,
 - Lifetime stats: total baked, total taps, time played.
 - WebAudio sound effects with a mute toggle 🔊.
 - Full progress autosave in `localStorage` + a reset button.
+
+## 🗓️ Season content — unlocks Oct 3
+
+- **🏭 Factory Mode** — the whole play area becomes a pizza factory: bang the Pizza Machine to bake, watch pizzas roll down the conveyor, and buy machines (Dough Treadmill, Topping Extruder, Cheese Cannon...) for more production.
+- **🤖 The Boss** — the **Pizza-Razer** attacks every hour on the hour. Phase 1: drag your pizza to dodge deadly lasers, pineapples and bugs while he rains sparks. Phase 2: he's tired and sends out his **Chef Rat** — aim & throw your 10 pizza slices to scare it off. Wins give big gold **and a permanent +2% to everything** (stacks up to 5 wins).
+- **🎁 Daily Rewards** — claim a daily chef bonus (streak rewards scale it up).
+- **🛒 DLC Codes** — click the 🛒 button and try these:
+  - `release` — unlocks the Deep Freeze Vault machine + bonus gold.
+  - `CHEFRAT` — a secret! Unlocks the Holographic Oven + 2 Legend Points.
+  - `pneumonoultramicroscopicsilicovolcanoconiosis` — the longest word... ever. Activates **MEGA MODE**: maxes every upgrade, topping, machine and grants +50 Legend Points.
+- Add `?beta` to the URL to preview all season content before Oct 3.
 
 ## Tech
 

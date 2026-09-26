@@ -365,9 +365,100 @@
     .stat b { font-size: 16px; }
     .logo { font-size: 18px; }
   }
+
+  /* ============ COOLER LOOK ============ */
+  body { background: radial-gradient(circle at 50% -10%, #5a3418, #170b03 65%), linear-gradient(160deg, #3a1f0c, #0f0803); animation: bgShift 14s ease-in-out infinite alternate; }
+  @keyframes bgShift { 0% { filter: hue-rotate(0deg) brightness(1); } 100% { filter: hue-rotate(18deg) brightness(1.06); } }
+  #embers { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+  .ember { position: absolute; bottom: -12px; border-radius: 50%; background: radial-gradient(circle, #ffd34d, #ff7b3d 70%); animation: emberRise linear infinite; opacity: 0.8; }
+  @keyframes emberRise { to { transform: translateY(-110vh) translateX(30px) scale(0.5); opacity: 0; } }
+  #vignette { position: fixed; inset: 0; pointer-events: none; z-index: 2; box-shadow: inset 0 0 180px rgba(0,0,0,0.85); }
+  #app { position: relative; z-index: 3; }
+  .logo { background: linear-gradient(90deg, #ffd34d, #ff8a3d, #ffd34d); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: logoShine 4s linear infinite; }
+  @keyframes logoShine { to { background-position: 200% center; } }
+  #app .logo span { color: #ffd34d; }
+  header { border-bottom: 1px solid rgba(255,211,77,0.14); backdrop-filter: blur(6px); background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.02)); }
+  .hbtns { display: flex; gap: 8px; align-items: center; }
+  .hbtn { font-size: 18px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 4px 9px; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; position: relative; }
+  .hbtn:hover { transform: translateY(-2px); box-shadow: 0 4px 14px rgba(255,150,60,0.4); }
+  #dailyBtn.ready { animation: readyBounce 1.3s infinite; border-color: #ffd34d; box-shadow: 0 0 12px rgba(255,211,77,0.6); }
+  #dailyBtn.locked { filter: grayscale(0.7); opacity: 0.7; }
+  @keyframes readyBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+  #shop { background: rgba(20,10,4,0.9); border-left: 2px solid rgba(255,211,77,0.25); backdrop-filter: blur(8px); }
+  .tab:hover { background: rgba(255,211,77,0.12); }
+  .tab.locked { opacity: 0.6; }
+  .card { position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); transition: transform .12s ease, box-shadow .12s ease, border-color .15s ease, opacity .28s ease; }
+  .card::after { content:""; position: absolute; top: 0; left: -130%; width: 60%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent); transform: skewX(-20deg); transition: left .5s ease; pointer-events: none; }
+  .card:hover::after { left: 170%; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
+  .card.locked { filter: grayscale(0.85); opacity: 0.75; }
+  .btn.gold { background: linear-gradient(90deg, #ff8a3d, #ffd34d); color: #3a1a04; border: none; font-weight: 700; box-shadow: 0 0 18px rgba(255,150,60,0.5); }
+
+  #sceneBar { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; gap: 6px; background: rgba(15,8,3,0.75); padding: 5px; border-radius: 22px; border: 1px solid rgba(255,211,77,0.3); backdrop-filter: blur(6px); }
+  .scenebtn { background: transparent; color: #fff; border: none; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 16px; cursor: pointer; transition: background .15s ease; opacity: .7; }
+  .scenebtn:hover { opacity: 1; }
+  .scenebtn.on { background: rgba(255,211,77,0.22); color: #ffd34d; opacity: 1; }
+
+  #factoryScene { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+  #factoryScene.on { display: flex; }
+  #factoryBg { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #160d07 0 46px, #1b110a 46px 92px); }
+  #machine { position: relative; width: 230px; height: 230px; border-radius: 26px; cursor: pointer; background: radial-gradient(circle at 30% 25%, #4a5c66, #1c2730 70%); border: 3px solid rgba(255,211,77,0.35); box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 -14px 30px rgba(0,0,0,0.5); transition: transform .07s ease; z-index: 2; }
+  #machine:hover { transform: scale(1.05); }
+  #machine.jolt { animation: jolt .18s ease; }
+  @keyframes jolt { 0% { transform: scale(1); } 40% { transform: scale(0.94); } 100% { transform: scale(1); } }
+  #machine .grate { position: absolute; inset: 22px; border-radius: 16px; background: repeating-linear-gradient(90deg, #101820 0 14px, #26333c 14px 28px); box-shadow: inset 0 0 18px rgba(0,0,0,0.8); }
+  .mDisp { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); background: #06202a; color: #5dffb0; font-family: Consolas, monospace; font-weight: 700; font-size: 15px; padding: 5px 12px; border-radius: 8px; box-shadow: inset 0 0 8px #0a3a4a; z-index: 3; white-space: nowrap; }
+  #mLamp { position: absolute; right: 12px; top: 12px; width: 14px; height: 14px; border-radius: 50%; background: #ff5040; box-shadow: 0 0 10px #ff5040; animation: blink 1.1s infinite; z-index: 3; }
+  @keyframes blink { 50% { opacity: .25; } }
+  .gears { position: absolute; bottom: -30px; width: 74px; height: 74px; border-radius: 50%; background: radial-gradient(circle, #4a5c66, #141d24 65%); border: 4px dashed rgba(255,211,77,0.5); animation: spin 6s linear infinite; z-index: 1; }
+  #gearL { left: -32px; } #gearR { right: -32px; animation-direction: reverse; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #conveyor { position: absolute; bottom: 40px; left: 5%; width: 90%; height: 26px; background: repeating-linear-gradient(90deg, #33241c 0 34px, #1d130d 34px 68px); border: 2px solid #4a3426; border-radius: 14px; z-index: 1; overflow: hidden; }
+  #conveyor .cp { position: absolute; bottom: 1px; font-size: 18px; animation: convMove 2.6s linear forwards; z-index: 2; }
+  @keyframes convMove { from { left: -24px; } to { left: calc(100% + 10px); } }
+
+  #bossOverlay { position: fixed; inset: 0; z-index: 60; display: none; flex-direction: column; background: radial-gradient(ellipse at 50% 0%, #35080c, #0a0204 75%); }
+  #bossOverlay.on { display: flex; }
+  #bossTop { display: flex; align-items: center; gap: 14px; padding: 12px 18px; background: linear-gradient(180deg, rgba(255,60,40,0.16), transparent); }
+  #bossFace { font-size: 52px; line-height: 1; filter: drop-shadow(0 0 16px rgba(255,60,40,0.7)); animation: bossIdle 1.6s ease-in-out infinite; }
+  @keyframes bossIdle { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-6px) rotate(4deg); } }
+  #bossInfo { flex: 1; }
+  #bossName { font-size: 20px; font-weight: 800; color: #ff6b5a; text-shadow: 0 0 12px rgba(255,60,40,0.6); letter-spacing: 1px; }
+  #bossPhase { font-size: 13px; opacity: .85; margin-top: 2px; }
+  .bhp { height: 16px; margin-top: 6px; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,60,40,0.5); border-radius: 9px; overflow: hidden; }
+  #bossHPM { height: 100%; width: 100%; background: linear-gradient(90deg, #ff5040, #ffb340); transition: width .2s ease; border-radius: 9px; }
+  #bossClose { font-size: 20px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: #fff; padding: 4px 10px; cursor: pointer; }
+  #bossPane { position: relative; flex: 1; overflow: hidden; touch-action: none; cursor: crosshair; }
+  #bossPane.hit { animation: panic .35s ease; }
+  @keyframes panic { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+  #bossPizza { position: absolute; width: 64px; height: 64px; font-size: 64px; transform: translate(-50%,-50%); filter: drop-shadow(0 0 14px rgba(255,211,77,0.9)); z-index: 5; pointer-events: none; }
+  .obs { position: absolute; font-size: 32px; z-index: 4; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5)); }
+  .obs.laser { width: 10px; height: 64px; background: linear-gradient(90deg, #ff2244, #ff8899); border-radius: 4px; box-shadow: 0 0 18px #ff2244, 0 0 40px #ff2244; }
+  .obs.bug { font-size: 26px; }
+  #slicesHud { position: absolute; left: 50%; transform: translateX(-50%); bottom: 16px; background: rgba(0,0,0,0.6); padding: 8px 18px; border-radius: 20px; font-size: 15px; font-weight: 700; z-index: 8; border: 1px solid rgba(255,211,77,0.4); }
+  #rat { position: absolute; font-size: 70px; z-index: 6; filter: drop-shadow(0 0 14px rgba(255,80,120,0.8)); display: none; transition: left .35s ease, top .35s ease; pointer-events: none; }
+  #rat.hit { animation: ratHit .25s ease; }
+  @keyframes ratHit { 0%,100% { transform: rotate(0) scale(1); } 40% { transform: rotate(-14deg) scale(1.25); } }
+  #bossDmg { position: absolute; inset: 0; display: none; background: radial-gradient(circle, transparent, rgba(255,30,30,0.4)); pointer-events: none; z-index: 7; }
+  #bossDmg.on { display: block; }
+  #sliceFly { position: absolute; z-index: 7; font-size: 26px; pointer-events: none; transform: translate(-50%,-50%); filter: drop-shadow(0 0 8px rgba(255,211,77,0.9)); }
+  #bossBtn { position: absolute; right: 14px; top: 14px; z-index: 22; display: none; align-items: center; gap: 8px; background: rgba(60,8,8,0.92); border: 2px solid #ff5040; color: #fff; font-weight: 800; font-size: 16px; padding: 10px 18px; border-radius: 26px; cursor: pointer; box-shadow: 0 0 24px rgba(255,60,40,0.6); animation: readyBounce 1s infinite; }
+  #bossBtn.on { display: flex; }
+  #bossBtn span { font-size: 22px; }
+
+  .modalWrap { position: fixed; inset: 0; z-index: 70; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); }
+  .modalWrap.on { display: flex; }
+  .modalBox { background: linear-gradient(180deg, #2a160a, #150b04); border: 2px solid rgba(255,211,77,0.5); border-radius: 18px; padding: 22px 26px; width: min(420px, 90vw); box-shadow: 0 20px 60px rgba(0,0,0,0.7); text-align: center; }
+  .modalBox h2 { margin-bottom: 8px; }
+  .modalBox p { opacity: .9; margin-bottom: 14px; }
+  .modalBox .row { display: flex; gap: 10px; justify-content: center; margin-top: 12px; }
+  .modalBox input { width: 100%; padding: 11px; border-radius: 10px; border: 1px solid rgba(255,211,77,0.4); background: rgba(255,255,255,0.07); color: #fff; font-size: 16px; text-align: center; outline: none; }
+  .modalBox input:focus { border-color: #ffd34d; box-shadow: 0 0 12px rgba(255,211,77,0.4); }
 </style>
 </head>
 <body>
+<div id="embers"></div>
+<div id="vignette"></div>
 <div id="app">
   <header>
     <div>
@@ -380,13 +471,33 @@
       <div class="stat"><span>Per Click</span><b id="perClick">1<em id="clickMult"></em></b></div>
       <div class="stat"><span>Per Second</span><b id="perSec">0<em id="secMult"></em></b></div>
     </div>
-    <button class="mute" id="muteBtn" title="Sound on/off">🔊</button>
+    <div class="hbtns">
+      <button class="hbtn" id="dlcBtn" title="DLC codes">🛒</button>
+      <button class="hbtn" id="dailyBtn" title="Daily reward">🎁</button>
+      <button class="mute" id="muteBtn" title="Sound on/off">🔊</button>
+    </div>
   </header>
 
   <div class="main">
     <div id="clickArea">
+      <div id="sceneBar">
+        <button class="scenebtn on" id="sceneBoard">🍕 Board</button>
+        <button class="scenebtn" id="sceneFactory">🏭 Factory</button>
+      </div>
       <div id="comboMsg" class="combo-text" style="display:none"></div>
       <div class="chip" id="buffs"></div>
+      <button id="bossBtn"><span>😡</span> A BOSS APPROACHES! FIGHT!</button>
+      <div id="factoryScene">
+        <div id="factoryBg"></div>
+        <div id="conveyor"></div>
+        <div id="machine">
+          <div class="gears" id="gearL"></div>
+          <div class="gears" id="gearR"></div>
+          <div class="grate"></div>
+          <div class="mDisp" id="mDisp">🍕 PRESS TO BAKE</div>
+          <div id="mLamp"></div>
+        </div>
+      </div>
       <div id="stage">
         <div id="stageGlow"></div>
         <div id="pizzaWrap">
@@ -415,10 +526,12 @@
       <div class="tabs">
         <button class="tab on" data-tab="upg">⚙️ Upgrades</button>
         <button class="tab" data-tab="top">🍕 Toppings</button>
+        <button class="tab" data-tab="mach">🏭 Machines</button>
         <button class="tab" data-tab="leg">🌟 Legend</button>
       </div>
       <div id="panel-upg" class="panel on"><h3>Build your kitchen</h3><div class="list"></div></div>
       <div id="panel-top" class="panel"><h3>Decorate your pizza</h3><div class="list"></div></div>
+      <div id="panel-mach" class="panel"><h3>Run the pizza factory</h3><div class="list"></div></div>
       <div id="panel-leg" class="panel"><div class="list"></div></div>
     </div>
   </div>
@@ -434,6 +547,47 @@
   </div>
 </div>
 <div id="fx"></div>
+
+<div id="bossOverlay">
+  <div id="bossTop">
+    <div id="bossFace">😡</div>
+    <div id="bossInfo">
+      <div id="bossName">PIZZA-RAZER</div>
+      <div id="bossPhase">Approaching...</div>
+      <div class="bhp"><div id="bossHPM"></div></div>
+    </div>
+    <button id="bossClose">✕</button>
+  </div>
+  <div id="bossPane" class="hit">
+    <div id="bossDmg"></div>
+    <div id="bossPizza">🍕</div>
+    <div id="rat">🐀</div>
+    <div id="slicesHud">🍕 Slices: 10</div>
+  </div>
+</div>
+
+<div id="dailyModal" class="modalWrap">
+  <div class="modalBox">
+    <h2>🎁 Daily Reward</h2>
+    <p id="dailyText">Claim today's chef bonus!</p>
+    <div class="row">
+      <button class="btn gold" id="dailyGo">Claim</button>
+      <button class="btn ghost" id="dailyClose">Later</button>
+    </div>
+  </div>
+</div>
+
+<div id="dlcModal" class="modalWrap">
+  <div class="modalBox">
+    <h2>🛒 DLC Vault</h2>
+    <p>Got a secret code? Redeem it here.<br><span style="opacity:.55;font-size:12px">Hint: try <b>release</b></span></p>
+    <input id="dlcInput" placeholder="Enter code..." maxlength="64" autocomplete="off" spellcheck="false">
+    <div class="row">
+      <button class="btn gold" id="dlcGo">Redeem</button>
+      <button class="btn ghost" id="dlcClose">Close</button>
+    </div>
+  </div>
+</div>
 
 <script>
 // ================= DATA =================
@@ -463,6 +617,17 @@ const TOPPINGS = [
   { id:'basil',     emoji:'🌿', name:'Fresh Basil',       type:'prod', gain: 200, base: 800000,   copy:'Farm to table.' },
   { id:'sausage',   emoji:'🍖', name:'Italian Sausage',   type:'prod', gain: 600, base: 2800000,  copy:'Crowns of flavor.' },
   { id:'truffle',   emoji:'🟤', name:'Gold Truffle',      type:'prod', gain: 2000, base: 10000000, copy:'Posh pizza.' },
+];
+
+const MACHINES = [
+  { id:'press',    icon:'🥟', name:'Dough Press',       desc:'+3 per tap',       base: 500,       type:'click', gain: 3,   costMult: 1.18 },
+  { id:'tread',    icon:'🏃', name:'Dough Treadmill',   desc:'+5 / second',      base: 2000,      type:'prod',  gain: 5,   costMult: 1.15 },
+  { id:'spray',    icon:'🎨', name:'Sauce Sprayer',     desc:'+8 / second',      base: 12000,     type:'prod',  gain: 8,   costMult: 1.15 },
+  { id:'extruder', icon:'🍖', name:'Topping Extruder',  desc:'+25 / second',     base: 90000,     type:'prod',  gain: 25,  costMult: 1.15 },
+  { id:'cannon',   icon:'🧀', name:'Cheese Cannon',     desc:'+80 / second',     base: 600000,    type:'prod',  gain: 80,  costMult: 1.15 },
+  { id:'brick',    icon:'🧱', name:'Brick Oven Line',   desc:'+250 / second',    base: 4000000,   type:'prod',  gain: 250, costMult: 1.15 },
+  { id:'freeze',   icon:'🧊', name:'Deep Freeze Vault', desc:'+1500 / second',   base: 40000000,  type:'prod',  gain: 1500, costMult: 1.15, dlc:'release', lockMsg:'Requires the "release" DLC code!' },
+  { id:'holo',     icon:'📡', name:'Holographic Oven',  desc:'+500 per tap',     base: 200000000, type:'click', gain: 500, costMult: 1.20, dlc:'chefrat', lockMsg:'Requires a SECRET DLC code... 👀' },
 ];
 
 const PERKS = [
@@ -508,6 +673,12 @@ const ACHIEVEMENTS = [
   { id:24, icon:'⚡', name:'Combo Wizard',         need: () => state.bestCombo >= 50 },
   { id:25, icon:'☄️', name:'Combo GOD',            need: () => state.bestCombo >= 100 },
   { id:26, icon:'😪', name:'Deep Sleep Chef',      need: () => state.offlineBonus >= 1000 },
+  { id:27, icon:'🎉', name:'Release DLC',          need: () => state.dlc.release },
+  { id:28, icon:'🕵️', name:'Secret DLC',          need: () => state.dlc.chefrat },
+  { id:29, icon:'🌋', name:'Mega Mode',            need: () => state.dlc.mega },
+  { id:30, icon:'🏆', name:'Boss Slayer',          need: () => (state.boss.wins||0) >= 1 },
+  { id:31, icon:'🥊', name:'Boss Reaper',          need: () => (state.boss.wins||0) >= 5 },
+  { id:32, icon:'📅', name:'Daily Devotee',        need: () => (state.daily.streak||0) >= 3 },
 ];
 
 const SAVE_KEY = 'pizzaClickerSave2';
@@ -517,11 +688,17 @@ let state = {
   gold: 0, totalEarned: 0, totalTaps: 0,
   points: 0, rebirths: 0, goldenClicks: 0,
   upgrades: {}, toppings: {}, perks: {},
+  machines: {}, daily: { last:'', streak:0 }, dlc: {}, boss: { wins:0, lastHour:'' },
   buffs: { surge:0, rival:0, hype:0 },
   events: { rat:0, rival:0, surge:0, gnome:0, jackpot:0, hype:0 },
   bestCombo: 0, offlineBonus: 0, seconds: 0, lastSeen: Date.now(),
 };
-let upgrades = [], toppings = [];
+let upgrades = [], toppings = [], machines = [];
+
+// ================= DLC / SEASON =================
+const DLC_DATE = new Date('2026-10-03T00:00:00');
+const BETA = /[?&](beta|preview)(&|$|#)/.test(location.search);
+function dlcOpen(){ return BETA || Date.now() >= DLC_DATE.getTime(); }
 
 // ================= DOM =================
 const $ = id => document.getElementById(id);
@@ -564,6 +741,7 @@ function fmt(n){
 function getClickMult(){ return 1 + state.points*0.05 + (state.perks.slice||0)*0.10; }
 function getProdMult(){  return 1 + state.points*0.05 + (state.perks.time||0)*0.10; }
 function getLuckMult(){  return 1 + (state.perks.luck||0)*0.25; }
+function getBossMult(){  return 1 + Math.min(state.boss.wins||0, 5) * 0.02; }
 
 function buffMult(type){
   const now = Date.now();
@@ -588,13 +766,15 @@ function clickPower(){
   let p = 1;
   for(const u of upgrades) if(u.type==='click') p += u.gain * u.count;
   for(const u of toppings)  if(u.type==='tap')   p += u.gain * u.count;
-  return p * getClickMult() * buffMult('click');
+  for(const u of machines)  if(u.type==='click') p += u.gain * u.count;
+  return p * getClickMult() * getBossMult() * buffMult('click');
 }
 function prodPower(){
   let p = 0;
   for(const u of upgrades) if(u.type==='prod') p += u.gain * u.count;
   for(const u of toppings)  if(u.type==='prod') p += u.gain * u.count;
-  return p * getProdMult() * buffMult('prod');
+  for(const u of machines)  if(u.type==='prod') p += u.gain * u.count;
+  return p * getProdMult() * getBossMult() * buffMult('prod');
 }
 function totalToppings(){ return Object.values(state.toppings).reduce((a,b)=>a+b,0); }
 function allToppingsBought(){ return Object.values(state.toppings).length >= TOPPINGS.length && Object.values(state.toppings).every(c => c > 0); }
@@ -804,10 +984,7 @@ function burst(x, y, n, colors){
   }
 }
 
-area.addEventListener('click', e=>{
-  if(e.target.closest('#goldenPizza')) return;
-  const rect = area.getBoundingClientRect();
-  const x = e.clientX-rect.left, y = e.clientY-rect.top;
+function tapPizza(x, y){
   const now = Date.now();
   if(now < comboUntil) comboCount++; else comboCount = 1;
   comboUntil = now + 1000;
@@ -833,14 +1010,22 @@ area.addEventListener('click', e=>{
   burst(x, y, 10 + (cmx>1?6:0));
   if(state.totalTaps % 5 === 0) flyBits(x, y);
   updateAll();
+}
+
+area.addEventListener('click', e=>{
+  if(e.target.closest('#goldenPizza') || e.target.closest('#bossBtn') || e.target.closest('#machine')) return;
+  const rect = area.getBoundingClientRect();
+  tapPizza(e.clientX-rect.left, e.clientY-rect.top);
 });
 
 // ================= SHOP BUILD =================
 function buildAll(){
   upgrades = UPGRADES.map(u=>({...u, count: state.upgrades[u.id]||0}));
   toppings = TOPPINGS.map(t=>({...t, count: state.toppings[t.id]||0, costMult: 1.16}));
+  machines = MACHINES.map(m=>({...m, count: state.machines[m.id]||0}));
   buildUps();
   buildTops();
+  buildMachines();
   buildPerks();
   renderToppings(); renderSteam(); renderChefs();
 }
@@ -856,7 +1041,7 @@ function cardFor(u, onBuy){
       <div class="price">🍕 ${fmt(u.cost)}</div>
     </div>`;
   d.addEventListener('click', ()=>{
-    if(u.locked){ sNo(); toast('🔒 ' + u.name + ' unlocks as you earn more pizza!'); return; }
+    if(u.locked){ sNo(); toast('🔒 ' + (u.lockMsg || (u.name + ' unlocks as you earn more pizza!'))); return; }
     onBuy(u, d);
   });
   return d;
@@ -884,6 +1069,46 @@ function buyTop(u){
   renderToppings();
   buildTops();
   updateAll();
+}
+
+function buyMach(u){
+  const def = machines.find(x=>x.id===u.id);
+  if(u.dlc && !state.dlc[u.dlc]){ sNo(); toast('🔒 Requires a DLC code — redeem in 🛒 DLC!'); return; }
+  const cost = costOf(def);
+  if(state.gold < cost){ sNo(); toast('Not enough pizza gold! 🍕'); return; }
+  state.gold -= cost; def.count++; state.machines[u.id] = def.count;
+  sBuy();
+  toast(`${u.icon} Bought ${u.name}! (${u.gain} ${u.type==='click'?'/tap':'/sec'})`);
+  buildMachines();
+  updateAll();
+}
+function buildMachines(){
+  const list = $('panel-mach').querySelector('.list');
+  list.innerHTML = '';
+  if(!dlcOpen()){
+    const d = document.createElement('div');
+    d.className = 'card locked';
+    d.innerHTML = `<div class="info"><div class="name">🏭 Pizza Factory</div><div class="desc">Opening <b>Oct 3</b>! Machines, conveyor lines & pizza automation. DLC codes already work — check 🛒.</div></div>`;
+    list.appendChild(d);
+    return;
+  }
+  const sorted = [...machines].sort((a,b)=>costOf(a)-costOf(b));
+  for(const u of sorted){
+    const locked = !!(u.dlc && !state.dlc[u.dlc]);
+    list.appendChild(cardFor({...u, cost: costOf(u), locked, lockMsg: u.lockMsg}, buyMach));
+  }
+  staggerIn(list);
+  refreshMachAvail();
+}
+function refreshMachAvail(){
+  if(!dlcOpen()) return;
+  const cards = $('panel-mach').querySelectorAll('.card');
+  const sorted = [...machines].sort((a,b)=>costOf(a)-costOf(b));
+  cards.forEach((c,i)=>{
+    const u = sorted[i]; if(!u) return;
+    const locked = !!(u.dlc && !state.dlc[u.dlc]);
+    c.classList.toggle('buyable', !locked && state.gold >= costOf(u));
+  });
 }
 
 function buildUps(){
@@ -1003,7 +1228,7 @@ function doRebirth(pp){
   state.points += pp;
   state.rebirths++;
   state.gold = 0; state.totalEarned = 0; state.totalTaps = 0;
-  state.upgrades = {}; state.toppings = {};
+  state.upgrades = {}; state.toppings = {}; state.machines = {};
   if(goldenEl){ goldenEl.remove(); goldenEl = null; }
   sReb();
   confetti();
@@ -1021,6 +1246,300 @@ document.querySelectorAll('.tab').forEach(t=>{
     $('panel-'+t.dataset.tab).classList.add('on');
   });
 });
+
+// ================= FACTORY =================
+const machineEl = $('machine'), mDisp = $('mDisp'), conveyor = $('conveyor'),
+      factoryScene = $('factoryScene'), sceneFactory = $('sceneFactory'), sceneBoard = $('sceneBoard');
+function setScene(mode){
+  const isFactory = mode === 'factory';
+  factoryScene.classList.toggle('on', isFactory);
+  stage.style.display = isFactory ? 'none' : '';
+  sceneBoard.classList.toggle('on', !isFactory);
+  sceneFactory.classList.toggle('on', isFactory);
+  if(isFactory) mDisp.textContent = '🍕 '+fmt(state.gold)+' baked';
+}
+sceneBoard.addEventListener('click', ()=>setScene('board'));
+sceneFactory.addEventListener('click', ()=>{
+  if(!dlcOpen()){ toast('🏭 The Pizza Factory opens Oct 3!'); sNo(); return; }
+  setScene('factory');
+});
+machineEl.addEventListener('click', e=>{
+  e.stopPropagation();
+  if(!dlcOpen()){ toast('🏭 The Pizza Factory opens Oct 3!'); sNo(); return; }
+  const r = machineEl.getBoundingClientRect(), ar = area.getBoundingClientRect();
+  machineEl.classList.remove('jolt'); void machineEl.offsetWidth; machineEl.classList.add('jolt');
+  tapPizza(r.left - ar.left + r.width/2, r.top - ar.top + r.height/3);
+  const p = document.createElement('span');
+  p.className = 'cp'; p.textContent = '🍕';
+  conveyor.appendChild(p);
+  setTimeout(()=>p.remove(), 2600);
+  mDisp.textContent = '🍕 '+fmt(state.gold)+' baked';
+});
+
+// ================= DAILY REWARD =================
+const dailyBtn = $('dailyBtn');
+function todayKey(){ const d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function yesterdayKey(){ const d = new Date(); d.setDate(d.getDate()-1); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function dailyClaimable(){ return dlcOpen() && state.daily.last !== todayKey(); }
+function dailyBounce(){
+  dailyBtn.classList.toggle('ready', dailyClaimable());
+  dailyBtn.classList.toggle('locked', !dlcOpen());
+}
+function openDaily(){
+  if(!dlcOpen()){ toast('🎁 Daily rewards unlock Oct 3!'); sNo(); return; }
+  if(!dailyClaimable()){ toast('🎁 Already claimed today — come back tomorrow!'); return; }
+  const next = state.daily.last === yesterdayKey() ? (state.daily.streak||0)+1 : 1;
+  const reward = Math.floor(250 + prodPower()*10 + next*500);
+  $('dailyText').innerHTML = `Streak day <b style="color:#ffd34d">${next}</b>!<br>Reward: <b style="color:#6df5a0">+${fmt(reward)}</b> 🍕<br><span style="opacity:.6;font-size:12px">New record resets your streak.</span>`;
+  $('dailyModal').classList.add('on');
+  $('dailyGo').onclick = ()=>{
+    state.daily.streak = next;
+    state.daily.last = todayKey();
+    state.gold += reward; state.totalEarned += reward;
+    $('dailyModal').classList.remove('on');
+    sGold(); confetti(); checkAchievements();
+    toast('🎁 Day '+next+' claimed! +'+fmt(reward)+' 🍕');
+    updateAll();
+  };
+}
+dailyBtn.addEventListener('click', openDaily);
+$('dailyClose').addEventListener('click', ()=>$('dailyModal').classList.remove('on'));
+
+// ================= DLC CODES =================
+$('dlcBtn').addEventListener('click', ()=>{
+  $('dlcModal').classList.add('on');
+  $('dlcInput').value = '';
+  $('dlcInput').focus();
+});
+$('dlcClose').addEventListener('click', ()=>$('dlcModal').classList.remove('on'));
+function redeemDLC(raw){
+  const code = (raw||'').trim().toLowerCase();
+  if(code === 'release'){
+    if(state.dlc.release){ sNo(); toast('🎉 Release DLC already redeemed!'); return; }
+    state.dlc.release = true;
+    state.gold += 25000; state.totalEarned += 25000;
+    sGold(); confetti(); buildAll(); checkAchievements();
+    toast('🎉 Release DLC! Deep Freeze Vault added to the factory. +25,000 🍕');
+    $('dlcModal').classList.remove('on');
+    updateAll();
+  } else if(code === 'chefrat'){
+    if(state.dlc.chefrat){ sNo(); toast('🐀 Secret DLC already redeemed!'); return; }
+    state.dlc.chefrat = true;
+    state.points += 2;
+    sGold(); confetti(); buildAll(); checkAchievements();
+    toast('🕵️ Secret DLC found! Holographic Oven added + 2 Legend Points.');
+    $('dlcModal').classList.remove('on');
+    updateAll();
+  } else if(code === 'pneumonoultramicroscopicsilicovolcanoconiosis'){
+    if(state.dlc.mega){ sNo(); toast('🌋 Already in MEGA MODE!'); return; }
+    state.dlc.mega = true;
+    for(const u of UPGRADES) state.upgrades[u.id] = Math.max(state.upgrades[u.id]||0, 50);
+    for(const t of TOPPINGS) state.toppings[t.id] = Math.max(state.toppings[t.id]||0, 20);
+    for(const m of MACHINES) state.machines[m.id] = Math.max(state.machines[m.id]||0, 50);
+    state.points += 50;
+    state.gold += 1e12; state.totalEarned += 1e12;
+    sGold(); confetti(); buildAll(); renderToppings(); renderSteam(); renderChefs(); checkAchievements();
+    toast('🌋 MEGA MODE! EVERYTHING maxed — +50 Legend Points!');
+    $('dlcModal').classList.remove('on');
+    updateAll();
+  } else {
+    sNo(); toast('❌ That code is not valid.');
+  }
+}
+$('dlcGo').addEventListener('click', ()=>redeemDLC($('dlcInput').value));
+$('dlcInput').addEventListener('keydown', e=>{ if(e.key === 'Enter') redeemDLC($('dlcInput').value); });
+
+// ================= BOSS =================
+const bossOv = $('bossOverlay'), bossPane = $('bossPane'), bossPizzaEl = $('bossPizza'),
+      bossHPM = $('bossHPM'), bossPhase = $('bossPhase'), bossFace = $('bossFace'),
+      bossDmg = $('bossDmg'), ratEl = $('rat'), slicesHud = $('slicesHud'), bossBtn = $('bossBtn');
+let boss = { on:false, phase:1, hp:100, timer:20, pane:{w:0,h:0}, p:{x:0,y:0}, obs:[], raf:0,
+  lastSpawn:0, lastT:0, rat:{x:0,y:0}, ratTimer:0, slices:10, ratHP:10, over:false, drag:false, t2:0 };
+let bossAvail = false, flights = [];
+function bossHourKey(){ const d = new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()+'-'+d.getHours(); }
+function bossScheduled(){ return dlcOpen() && state.boss.lastHour !== bossHourKey() && new Date().getMinutes() === 0; }
+bossBtn.addEventListener('click', ()=>{
+  state.boss.lastHour = bossHourKey();
+  bossAvail = false; bossBtn.classList.remove('on');
+  startBoss();
+});
+function startBoss(){
+  boss.on = true; boss.phase = 1; boss.hp = 100; boss.timer = 20;
+  boss.obs = []; flights = []; boss.slices = 10; boss.ratHP = 10;
+  boss.over = false; boss.lastSpawn = 0; boss.lastT = 0;
+  const r = bossPane.getBoundingClientRect();
+  boss.pane.w = r.width; boss.pane.h = r.height;
+  boss.p.x = r.width/2; boss.p.y = r.height - 90;
+  bossPizzaEl.style.left = boss.p.x+'px'; bossPizzaEl.style.top = boss.p.y+'px';
+  bossFace.textContent = '😡';
+  bossHPM.style.width = '100%';
+  bossPhase.textContent = 'PHASE 1 — DODGE the lasers, pineapples & bugs!';
+  ratEl.style.display = 'none'; slicesHud.style.display = 'none';
+  bossOv.classList.add('on');
+  boss.raf = requestAnimationFrame(bossLoop);
+}
+function spawnObs(){
+  const roll = Math.random();
+  const o = {
+    x: 24 + Math.random()*(boss.pane.w-48), y: -34,
+    vx: Math.random()*70-35,
+    vy: roll<0.4 ? (55+Math.random()*25) : (85+Math.random()*60),
+    type: roll<0.4?'laser': roll<0.7?'pine':'bug'
+  };
+  const d = document.createElement('div');
+  d.className = 'obs '+o.type;
+  d.textContent = o.type==='pine'?'🍍': o.type==='bug'?'🐛':'';
+  bossPane.appendChild(d);
+  o.el = d; placeObs(o);
+  boss.obs.push(o);
+}
+function placeObs(o){ o.el.style.left = o.x+'px'; o.el.style.top = o.y+'px'; }
+function updateObs(dt){
+  boss.obs = boss.obs.filter(o=>{
+    o.x += o.vx*dt; o.y += o.vy*dt;
+    placeObs(o);
+    const dx = o.x - boss.p.x, dy = o.y - boss.p.y;
+    if(Math.abs(dx) < 38 && Math.abs(dy) < 38){ o.el.remove(); hitBoss(o.type); return false; }
+    if(o.y > boss.pane.h + 36){ o.el.remove(); return false; }
+    return true;
+  });
+}
+function hitBoss(type){
+  boss.hp -= type==='laser' ? 6 : type==='pine' ? 14 : 10;
+  boss.hp = Math.max(0, boss.hp);
+  bossHPM.style.width = boss.hp+'%';
+  bossDmg.classList.add('on'); setTimeout(()=>bossDmg.classList.remove('on'), 160);
+  bossPane.classList.remove('hit'); void bossPane.offsetWidth; bossPane.classList.add('hit');
+  sNo();
+  if(boss.hp <= 0) bossFail();
+}
+bossPane.addEventListener('pointerdown', e=>{
+  if(!boss.on) return;
+  if(boss.phase === 1){ boss.drag = true; moveBossPizza(e); }
+  else throwSlice(e);
+});
+window.addEventListener('pointermove', e=>{ if(boss.on && boss.phase===1 && boss.drag) moveBossPizza(e); });
+window.addEventListener('pointerup', ()=>{ boss.drag = false; });
+function moveBossPizza(e){
+  const r = bossPane.getBoundingClientRect();
+  boss.p.x = Math.max(30, Math.min(r.width-30, e.clientX - r.left));
+  boss.p.y = Math.max(30, Math.min(r.height-30, e.clientY - r.top));
+  bossPizzaEl.style.left = boss.p.x+'px'; bossPizzaEl.style.top = boss.p.y+'px';
+}
+function enterPhase2(){
+  boss.phase = 2;
+  boss.face = 'tired';
+  bossFace.textContent = '😪';
+  boss.obs.forEach(o=>o.el.remove()); boss.obs = [];
+  ratEl.style.display = 'block';
+  slicesHud.style.display = 'block';
+  slicesHud.textContent = '🍕 Slices: 10';
+  boss.rat.x = Math.max(60, boss.pane.w*0.5 + (Math.random()*100-50));
+  boss.rat.y = boss.pane.h*0.35;
+  placeRat(); boss.ratTimer = 0; boss.t2 = Date.now();
+}
+function placeRat(){ ratEl.style.left = boss.rat.x+'px'; ratEl.style.top = boss.rat.y+'px'; }
+function updateRat(dt){
+  boss.ratTimer -= dt;
+  if(boss.ratTimer <= 0){
+    boss.ratTimer = 0.4;
+    boss.rat.x = Math.max(46, Math.min(boss.pane.w-46, boss.rat.x + (Math.random()*360-180)));
+    boss.rat.y = Math.max(46, Math.min(boss.pane.h-110, boss.rat.y + (Math.random()*360-180)));
+    placeRat();
+  }
+}
+function throwSlice(e){
+  if(boss.over || boss.slices <= 0) return;
+  boss.slices--;
+  slicesHud.textContent = '🍕 Slices: '+boss.slices;
+  const r = bossPane.getBoundingClientRect();
+  const tx = e.clientX - r.left, ty = e.clientY - r.top;
+  const sx = r.width/2, sy = r.height - 40;
+  const d = document.createElement('div');
+  d.id = 'sliceFly'; d.textContent = '🍕';
+  d.style.left = sx+'px'; d.style.top = sy+'px';
+  bossPane.appendChild(d);
+  flights.push({ x:sx, y:sy, tx, ty, t:0, el:d });
+  sClick();
+  if(boss.slices <= 0 && !boss._warned){ boss._warned = true; toast('🍕 Out of slices! Land the next hits!'); }
+}
+function updateFlights(dt){
+  flights = flights.filter(f=>{
+    f.t += dt/0.3;
+    if(f.t >= 1){
+      f.el.remove();
+      const dx = f.tx - boss.rat.x, dy = f.ty - boss.rat.y;
+      if(dx*dx + dy*dy < 46*46) ratHurt();
+      return false;
+    }
+    f.x += (f.tx - f.x)*dt*9; f.y += (f.ty - f.y)*dt*9;
+    f.el.style.left = f.x+'px'; f.el.style.top = f.y+'px';
+    return true;
+  });
+}
+function ratHurt(){
+  boss.ratHP--;
+  ratEl.classList.remove('hit'); void ratEl.offsetWidth; ratEl.classList.add('hit');
+  sBuy();
+  if(boss.ratHP <= 0){
+    bossWin();
+  } else {
+    boss.rat.x = Math.max(46, Math.min(boss.pane.w-46, boss.rat.x + (Math.random()*200-100)));
+    boss.rat.y = Math.max(46, Math.min(boss.pane.h-110, boss.rat.y + (Math.random()*200-100)));
+    placeRat();
+  }
+}
+function bossWin(){
+  boss.over = true; cancelAnimationFrame(boss.raf); boss.on = false;
+  state.boss.wins = (state.boss.wins||0) + 1;
+  const reward = Math.floor(5000 + prodPower()*50 + (state.boss.wins*2500));
+  state.gold += reward; state.totalEarned += reward;
+  sGold(); confetti(); checkAchievements(); updateAll();
+  bossOv.classList.remove('on');
+  toast('🏆 BOSS DEFEATED! +'+fmt(reward)+' 🍕 (also +2% to everything forever, stacking to 5 wins)');
+}
+function bossFail(){
+  boss.over = true; cancelAnimationFrame(boss.raf); boss.on = false;
+  const lost = Math.floor(state.gold * 0.05);
+  state.gold -= lost;
+  sNo(); updateAll();
+  bossOv.classList.remove('on');
+  toast('💥 The Pizza Destroyer smashed your factory! Lost '+fmt(lost)+' 🍕. He returns next hour...');
+}
+function bossRetreat(){
+  boss.over = true; cancelAnimationFrame(boss.raf); boss.on = false;
+  const lost = Math.floor(state.gold * 0.02);
+  state.gold -= lost;
+  sNo(); updateAll();
+  bossOv.classList.remove('on');
+  toast('🏃 The boss slipped away with '+fmt(lost)+' 🍕. Next hour...');
+}
+$('bossClose').addEventListener('click', ()=>{ if(boss.on) bossRetreat(); });
+function bossLoop(ts){
+  if(!boss.on) return;
+  const dt = Math.min(0.05, (ts - (boss.lastT||ts))/1000);
+  boss.lastT = ts;
+  if(boss.phase === 1){
+    boss.timer -= dt;
+    if(ts - boss.lastSpawn > 470){ boss.lastSpawn = ts; spawnObs(); }
+    updateObs(dt);
+    if(boss.hp > 0){
+      bossPhase.textContent = 'PHASE 1 — DODGE! ⏱ '+boss.timer.toFixed(1);
+    } else return;
+    if(boss.timer <= 0) enterPhase2();
+  } else {
+    updateRat(dt);
+    updateFlights(dt);
+    bossPhase.textContent = 'PHASE 2 — SMACK THE CHEF RAT! Left: '+boss.slices;
+    if(boss.ratHP <= 0){ return; }
+    if(Date.now() - boss.t2 > 16000){
+      toast('⏰ The rat escaped into the sewers...');
+      bossRetreat();
+      return;
+    }
+  }
+  if(!boss.over) boss.raf = requestAnimationFrame(bossLoop);
+}
 
 // ================= ACHIEVEMENTS =================
 let shownSet = new Set();
@@ -1088,6 +1607,7 @@ function updateAll(){
   pizza.classList.toggle('ascended', state.rebirths > 0);
   refreshAvailability($('panel-upg'));
   refreshAvailability($('panel-top'));
+  refreshMachAvail();
   checkAchievements();
 }
 
@@ -1157,8 +1677,16 @@ function fireEvent(){
 }
 
 // ================= GAME LOOP =================
-let last = Date.now(), lastPerk = 0, lastGlintAt = 0;
+let last = Date.now(), lastPerk = 0, lastGlintAt = 0, lastSecTick = 0;
 const RING_C = 2 * Math.PI * 48;
+function secondTick(){
+  dailyBounce();
+  if(bossScheduled() && !boss.on && !bossAvail){
+    bossAvail = true;
+    bossBtn.classList.add('on');
+    toast('🚨 The Pizza Destroyer lurks outside! Defend the factory!');
+  }
+}
 function updateRing(now){
   if(comboCount >= 2 && now < comboUntil){
     comboRing.style.opacity = 1;
@@ -1180,6 +1708,10 @@ function loop(){
     state.seconds += dt;
   }
   last = now;
+  if(now - lastSecTick > 1000){
+    lastSecTick = now;
+    secondTick();
+  }
   if(now - lastPerk > 1500){
     lastPerk = now;
     buildPerks();
@@ -1247,8 +1779,18 @@ if(state.__awayBonus > 0){
   toast('🧑‍🍳 While you were away, your chefs baked +' + fmt(state.__awayBonus) + '!');
   delete state.__awayBonus;
 }
+const embersEl = $('embers');
+for(let i=0;i<10;i++){
+  const em = document.createElement('div');
+  em.className = 'ember';
+  const sz = 3 + Math.random()*6;
+  em.style.cssText = `left:${Math.random()*100}%; width:${sz}px; height:${sz}px; animation-duration:${6+Math.random()*8}s; animation-delay:${Math.random()*8}s;`;
+  embersEl.appendChild(em);
+}
 buildAll();
+dailyBounce();
 updateAll();
+if(!dlcOpen()) toast('🗓️ Season content (Factory, Boss & Daily Rewards) opens Oct 3! DLC codes work now — hint: try "release".');
 requestAnimationFrame(loop);
 </script>
 </body>
