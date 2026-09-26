@@ -586,6 +586,20 @@
       <button class="btn gold" id="dlcGo">Redeem</button>
       <button class="btn ghost" id="dlcClose">Close</button>
     </div>
+    <div class="row" id="dlcFutureRow" style="display:none">
+      <button class="btn ghost" id="futureGo">🔮 Future Updates</button>
+    </div>
+  </div>
+</div>
+
+<div id="futureModal" class="modalWrap">
+  <div class="modalBox">
+    <h2>🔮 Future Updates</h2>
+    <p>MEGA MODE unlocked. Here's what's cooking in the kitchen →</p>
+    <div id="futureList" style="max-height:50vh;overflow:auto"></div>
+    <div class="row">
+      <button class="btn gold" id="futureClose">Aw yeah</button>
+    </div>
   </div>
 </div>
 
@@ -1312,6 +1326,33 @@ $('dlcBtn').addEventListener('click', ()=>{
   $('dlcInput').focus();
 });
 $('dlcClose').addEventListener('click', ()=>$('dlcModal').classList.remove('on'));
+
+const MEGA_CODE = ['pneumono','ultramicroscopic','silico','volcano','coniosis'].join('');
+
+const FUTURE = [
+  { emoji:'🌍', t:'Boss Arena 2.0',        d:'Fight the Pizza-Razer right inside your own factory, multi-wave!' },
+  { emoji:'👩‍🍳', t:'Companion Chefs & Pets', d:'Adorable helpers that follow you around and boost production.' },
+  { emoji:'🧀', t:'New Region: Cheeseland', d:'A whole slice of a new pizza planet to conquer.' },
+  { emoji:'🕹️', t:'Mini-Games',             d:'Slice-tossing arcade, delivery races, topping-matching frenzy.' },
+  { emoji:'🎪', t:'Seasonal Events',        d:'Holiday pizzas, limited-time machines & event trophies.' },
+  { emoji:'📱', t:'Cloud Saves',            d:'Continue your pizza empire on any device.' },
+  { emoji:'🔁', t:'Golden Rebirth',         d:'Prestige 2.0 with exclusive perks for the true Pizza Gods.' },
+  { emoji:'👑', t:'Pizza Kingdom',          d:'Unlockable kingdoms, each with its own ovens & toppings.' },
+];
+function buildFuture(){
+  $('futureList').innerHTML = FUTURE.map(f=>`
+    <div style="display:flex;gap:12px;align-items:flex-start;text-align:left;padding:9px 12px;border-bottom:1px solid rgba(255,255,255,0.08)">
+      <span style="font-size:24px">${f.emoji}</span>
+      <span><b style="color:#ffd34d">${f.t}</b><br><span style="opacity:.72;font-size:13px">${f.d}</span></span>
+    </div>`).join('');
+}
+function showFuture(){
+  buildFuture();
+  $('futureModal').classList.add('on');
+}
+$('futureGo').addEventListener('click', showFuture);
+$('futureClose').addEventListener('click', ()=>$('futureModal').classList.remove('on'));
+
 function redeemDLC(raw){
   const code = (raw||'').trim().toLowerCase();
   if(code === 'release'){
@@ -1330,7 +1371,7 @@ function redeemDLC(raw){
     toast('🕵️ Secret DLC found! Holographic Oven added + 2 Legend Points.');
     $('dlcModal').classList.remove('on');
     updateAll();
-  } else if(code === 'pneumonoultramicroscopicsilicovolcanoconiosis'){
+  } else if(code === MEGA_CODE){
     if(state.dlc.mega){ sNo(); toast('🌋 Already in MEGA MODE!'); return; }
     state.dlc.mega = true;
     for(const u of UPGRADES) state.upgrades[u.id] = Math.max(state.upgrades[u.id]||0, 50);
@@ -1340,7 +1381,9 @@ function redeemDLC(raw){
     state.gold += 1e12; state.totalEarned += 1e12;
     sGold(); confetti(); buildAll(); renderToppings(); renderSteam(); renderChefs(); checkAchievements();
     toast('🌋 MEGA MODE! EVERYTHING maxed — +50 Legend Points!');
+    $('dlcFutureRow').style.display = 'flex';
     $('dlcModal').classList.remove('on');
+    showFuture();
     updateAll();
   } else {
     sNo(); toast('❌ That code is not valid.');
@@ -1789,6 +1832,7 @@ for(let i=0;i<10;i++){
 }
 buildAll();
 dailyBounce();
+if(state.dlc.mega) $('dlcFutureRow').style.display = 'flex';
 updateAll();
 if(!dlcOpen()) toast('🗓️ Season content (Factory, Boss & Daily Rewards) opens Oct 3! DLC codes work now — hint: try "release".');
 requestAnimationFrame(loop);

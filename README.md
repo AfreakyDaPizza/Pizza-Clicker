@@ -31,10 +31,10 @@ A juicy, over-the-top pizza clicker game. Tap the pizza, build a kitchen empire,
 - **🏭 Factory Mode** — the whole play area becomes a pizza factory: bang the Pizza Machine to bake, watch pizzas roll down the conveyor, and buy machines (Dough Treadmill, Topping Extruder, Cheese Cannon...) for more production.
 - **🤖 The Boss** — the **Pizza-Razer** attacks every hour on the hour. Phase 1: drag your pizza to dodge deadly lasers, pineapples and bugs while he rains sparks. Phase 2: he's tired and sends out his **Chef Rat** — aim & throw your 10 pizza slices to scare it off. Wins give big gold **and a permanent +2% to everything** (stacks up to 5 wins).
 - **🎁 Daily Rewards** — claim a daily chef bonus (streak rewards scale it up).
-- **🛒 DLC Codes** — click the 🛒 button and try these:
+- **🛒 DLC Codes** — click the 🛒 button:
   - `release` — unlocks the Deep Freeze Vault machine + bonus gold.
   - `CHEFRAT` — a secret! Unlocks the Holographic Oven + 2 Legend Points.
-  - `pneumonoultramicroscopicsilicovolcanoconiosis` — the longest word... ever. Activates **MEGA MODE**: maxes every upgrade, topping, machine and grants +50 Legend Points.
+  - There's one final, legendary code hidden somewhere in the season... find it to trigger **MEGA MODE** and a peek at the **Future Updates** roadmap.
 - Add `?beta` to the URL to preview all season content before Oct 3.
 
 ## Tech
