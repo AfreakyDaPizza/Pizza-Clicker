@@ -509,6 +509,7 @@
       <div id="sceneBar">
         <button class="scenebtn on" id="sceneBoard">🍕 Board</button>
         <button class="scenebtn" id="sceneFactory">🏭 Factory</button>
+        <button class="scenebtn gold" id="futureBtn" style="display:none">🔮 Future</button>
       </div>
       <div id="comboMsg" class="combo-text" style="display:none"></div>
       <div class="chip" id="buffs"></div>
@@ -1403,6 +1404,12 @@ function showFuture(){
 }
 $('futureGo').addEventListener('click', showFuture);
 $('futureClose').addEventListener('click', ()=>$('futureModal').classList.remove('on'));
+$('futureBtn').addEventListener('click', showFuture);
+
+function showFutureBtn(){
+  $('futureBtn').style.display = 'inline-block';
+  $('dlcFutureRow').style.display = 'flex';
+}
 
 function redeemDLC(raw){
   const code = (raw||'').trim().toLowerCase();
@@ -1432,7 +1439,7 @@ function redeemDLC(raw){
     state.gold += 1e12; state.totalEarned += 1e12;
     sGold(); confetti(); buildAll(); renderToppings(); renderSteam(); renderChefs(); checkAchievements();
     toast('🌋 MEGA MODE! EVERYTHING maxed — +50 Legend Points!');
-    $('dlcFutureRow').style.display = 'flex';
+    showFutureBtn();
     $('dlcModal').classList.remove('on');
     showFuture();
     updateAll();
@@ -1883,7 +1890,7 @@ for(let i=0;i<10;i++){
 }
 buildAll();
 dailyBounce();
-if(state.dlc.mega) $('dlcFutureRow').style.display = 'flex';
+if(state.dlc.mega) showFutureBtn();
 updateAll();
 if(!dlcOpen()) toast('🗓️ Season content (Factory, Boss & Daily Rewards) opens Oct 3! DLC codes work now — hint: try "release".');
 requestAnimationFrame(loop);
