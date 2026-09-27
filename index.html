@@ -120,7 +120,7 @@
     background: radial-gradient(ellipse, rgba(255,255,255,0.4), transparent 70%);
     animation: steam 2.4s ease-out infinite; pointer-events: none;
   }
-  #chefWheel { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
+  #chefWheel { position: absolute; inset: 0; pointer-events: none; z-index: 5; display: none; }
   .chef { position: absolute; font-size: 36px; animation: chefBob 2.2s ease-in-out infinite; }
 
   .float-text {
@@ -414,6 +414,49 @@
   .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.45); }
   .card.locked { filter: grayscale(0.85); opacity: 0.75; }
   .btn.gold { background: linear-gradient(90deg, #ff8a3d, #ffd34d); color: #3a1a04; border: none; font-weight: 700; box-shadow: 0 0 18px rgba(255,150,60,0.5); }
+  .btn.gold:hover { box-shadow: 0 0 26px rgba(255,150,60,0.75); transform: translateY(-1px); }
+
+  #shop { position: relative; background: linear-gradient(180deg, rgba(34,20,10,0.92), rgba(15,8,3,0.95)); border-top: 2px solid rgba(255,211,77,0.25); backdrop-filter: blur(8px); }
+  #shop::before { content:""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #ffd34d, transparent); animation: shopGlow 3.2s ease-in-out infinite; pointer-events: none; z-index: 3; }
+  @keyframes shopGlow { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+
+  .tab { position: relative; backdrop-filter: blur(4px); }
+  .tab:not(.on):hover { background: rgba(255,211,77,0.14); color: #ffd34d; }
+  .tab.on { text-shadow: 0 0 12px rgba(255,211,77,0.8); }
+
+  .panel::-webkit-scrollbar { width: 9px; }
+  .panel::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 9px; }
+  .panel::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(255,211,77,0.45), rgba(255,138,61,0.35)); border-radius: 9px; }
+
+  #panel-upg h3 { text-transform: uppercase; letter-spacing: 2px; background: linear-gradient(90deg, #ffd34d, #ff8a3d, #ffd34d); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: logoShine 4s linear infinite; }
+  #panel-upg .card { background: linear-gradient(135deg, rgba(60,38,18,0.85), rgba(22,12,5,0.9)); border: 1px solid rgba(255,211,77,0.35); }
+  #panel-upg .card:hover { border-color: #ffd34d; box-shadow: 0 8px 26px rgba(0,0,0,0.55), 0 0 20px rgba(255,150,60,0.28); }
+  #panel-upg .card .ic { background: radial-gradient(circle at 35% 30%, rgba(255,211,77,0.35), rgba(255,138,61,0.15)); box-shadow: inset 0 0 16px rgba(255,150,60,0.35); font-size: 30px; }
+  #panel-upg .card .price { font-weight: 700; color: #ffd34d; background: rgba(255,211,77,0.12); padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(255,211,77,0.4); display: inline-block; margin-top: 4px; }
+  .upgProg { display: flex; flex-direction: column; gap: 6px; margin: -2px 0 12px; padding: 9px 11px; background: rgba(255,211,77,0.06); border: 1px solid rgba(255,211,77,0.22); border-radius: 12px; }
+  .upgProgBar { height: 8px; border-radius: 9px; background: rgba(255,255,255,0.09); overflow: hidden; }
+  .upgProgFill { height: 100%; background: linear-gradient(90deg, #ff8a3d, #ffd34d); border-radius: 9px; box-shadow: 0 0 10px rgba(255,211,77,0.6); transition: width .5s ease; }
+  .upgProgTxt { font-size: 12px; opacity: .85; letter-spacing: .5px; }
+  .upgProgTxt b { color: #ffd34d; }
+
+  header { position: relative; border-bottom: 1px solid rgba(255,211,77,0.18); background: linear-gradient(180deg, rgba(40,22,10,0.55), rgba(20,10,4,0.25)); }
+  header::after { content:""; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,211,77,0.5), transparent); pointer-events: none; }
+  .stat { border: 1px solid rgba(255,211,77,0.16); border-radius: 12px; padding: 5px 12px; background: rgba(255,255,255,0.05); backdrop-filter: blur(4px); }
+  .stat b { text-shadow: 0 0 12px rgba(255,211,77,0.4); }
+  .hbtn { border: 1px solid rgba(255,211,77,0.25); border-radius: 12px; box-shadow: inset 0 0 12px rgba(255,150,60,0.1); }
+  .hbtn:hover { border-color: #ffd34d; box-shadow: 0 4px 18px rgba(255,150,60,0.45); }
+
+  #chefSide { background: linear-gradient(180deg, rgba(28,16,7,0.72), rgba(12,6,2,0.55)); }
+  #chefKitchen .chefTile { background: linear-gradient(165deg, rgba(70,45,22,0.55), rgba(22,12,5,0.65)); border: 1px solid rgba(255,211,77,0.3); box-shadow: inset 0 2px 10px rgba(255,211,77,0.08), 0 4px 12px rgba(0,0,0,0.35); }
+  #chefKitchen .chefTile:hover { border-color: #ffd34d; transform: translateY(-2px); transition: transform .15s ease, border-color .15s ease; }
+
+  .scenebtn.gold { background: linear-gradient(90deg, #ff8a3d, #ffd34d); color: #3a1a04; opacity: 1; font-weight: 700; box-shadow: 0 0 14px rgba(255,150,60,0.5); }
+  .scenebtn.gold:hover { box-shadow: 0 0 22px rgba(255,150,60,0.85); }
+
+  .toast { box-shadow: 0 10px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,211,77,0.25); border-color: rgba(255,211,77,0.35); }
+  .btn.ghost { border: 1px solid rgba(255,211,77,0.4); backdrop-filter: blur(4px); }
+
+  #sceneBar { background: rgba(15,8,3,0.8); box-shadow: 0 6px 24px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,211,77,0.12); }
 
   #sceneBar { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 20; display: flex; gap: 6px; background: rgba(15,8,3,0.75); padding: 5px; border-radius: 22px; border: 1px solid rgba(255,211,77,0.3); backdrop-filter: blur(6px); }
   .scenebtn { background: transparent; color: #fff; border: none; font-size: 14px; font-weight: 600; padding: 7px 14px; border-radius: 16px; cursor: pointer; transition: background .15s ease; opacity: .7; }
@@ -423,6 +466,7 @@
   #factoryScene { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
   #factoryScene.on { display: flex; }
   #factoryBg { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #160d07 0 46px, #1b110a 46px 92px); }
+  #factoryBg::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at 50% 40%, rgba(255,190,80,0.1), transparent 60%); }
   #machine { position: relative; width: 230px; height: 230px; border-radius: 26px; cursor: pointer; background: radial-gradient(circle at 30% 25%, #4a5c66, #1c2730 70%); border: 3px solid rgba(255,211,77,0.35); box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 -14px 30px rgba(0,0,0,0.5); transition: transform .07s ease; z-index: 2; }
   #machine:hover { transform: scale(1.05); }
   #machine.jolt { animation: jolt .18s ease; }
@@ -739,7 +783,7 @@ let upgrades = [], toppings = [], machines = [];
 // ================= DLC / SEASON =================
 const DLC_DATE = new Date('2026-10-03T00:00:00');
 const BETA = /[?&](beta|preview)(&|$|#)/.test(location.search);
-function dlcOpen(){ return BETA || Date.now() >= DLC_DATE.getTime(); }
+function dlcOpen(){ return BETA || state.dlc.mega === true || Date.now() >= DLC_DATE.getTime(); }
 
 // ================= DOM =================
 const $ = id => document.getElementById(id);
@@ -891,17 +935,6 @@ function renderSteam(){
 function renderChefs(){
   chefWheel.innerHTML = '';
   const count = Math.min(Math.floor(prodPower()/4), 30);
-  for(let i=0;i<count;i++){
-    const d = document.createElement('div');
-    d.className = 'chef';
-    d.textContent = '👨‍🍳';
-    d.style.left = (8 + Math.random()*84) + '%';
-    d.style.top  = (28 + Math.random()*65) + '%';
-    d.style.animationDelay = (Math.random()*2)+'s';
-    d.style.fontSize = (22 + Math.random()*22) + 'px';
-    d.style.zIndex = Math.round(Math.random()*3);
-    chefWheel.appendChild(d);
-  }
   const kit = $('chefKitchen'), info = $('chefKitchenInfo');
   kit.innerHTML = '';
   if(count === 0){
@@ -1180,6 +1213,12 @@ function refreshMachAvail(){
 function buildUps(){
   const list = $('panel-upg').querySelector('.list');
   list.innerHTML = '';
+  const owned = upgrades.filter(u=>(u.count||0) > 0).length;
+  const pct = Math.round(owned / upgrades.length * 100);
+  const pr = document.createElement('div');
+  pr.className = 'upgProg';
+  pr.innerHTML = `<div class="upgProgBar"><div class="upgProgFill" style="width:${pct}%"></div></div><div class="upgProgTxt">⚙️ <b>${owned}/${upgrades.length}</b> upgrades owned</div>`;
+  list.appendChild(pr);
   const sorted = [...upgrades].sort((a,b)=>costOf(a)-costOf(b));
   for(const u of sorted){
     list.appendChild(cardFor({...u, cost: costOf(u), locked: !unlockCheck(u)}, buyUpg));
