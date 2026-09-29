@@ -862,6 +862,11 @@ const UPGRADES = [
   { id:'sun',   icon:'☀️', name:'Dough Star Reactor',desc:'+1000 / second', base: 3000000,  type:'prod',  gain: 1000, costMult: 1.16 },
   { id:'worm',  icon:'🌀', name:'Cheese Wormhole',   desc:'+5000 / second', base: 15000000, type:'prod',  gain: 5000, costMult: 1.16 },
   { id:'god',   icon:'🪽', name:'Hand of Pizza God', desc:'+20000 / second',base: 80000000, type:'prod',  gain: 20000, costMult: 1.16 },
+  { id:'crusher',icon:'🗜️', name:'Dough Crusher',     desc:'+60 per tap',    base: 50000000, type:'click', gain: 60,   costMult: 1.20 },
+  { id:'ice',   icon:'🧊', name:'Crust Glacier',     desc:'+2500 / second', base: 400000000,  type:'prod',  gain: 2500,  costMult: 1.16 },
+  { id:'nova',  icon:'⭐', name:'Pizza Supernova',    desc:'+10000 / second',base: 2000000000, type:'prod',  gain: 10000, costMult: 1.16 },
+  { id:'black', icon:'🕳️', name:'Dough Singularity',  desc:'+50000 / second',base: 10000000000, type:'prod',  gain: 50000, costMult: 1.16 },
+  { id:'univ',  icon:'🌌', name:'Pizza Multiverse',   desc:'+250000 / second',base: 60000000000, type:'prod',  gain: 250000, costMult: 1.16 },
 ];
 
 const TOPPINGS = [
@@ -1044,7 +1049,7 @@ function rebirthQty(){ return Math.floor(Math.pow(state.totalEarned / 1e6, 0.5))
 
 function unlockCheck(u){
   const t = state.totalEarned;
-  const map = { chef:100, mixer:500, robot:2000, sauce:5000, kin:15000, cone:50000, drone:150000, portal:800000, mine:4000000, sun:20000000, worm:150000000, god:900000000 };
+  const map = { chef:100, mixer:500, robot:2000, sauce:5000, kin:15000, cone:50000, drone:150000, portal:800000, mine:4000000, sun:20000000, worm:150000000, god:900000000, crusher:250000000, ice:3000000000, nova:15000000000, black:70000000000, univ:400000000000 };
   return t >= (map[u.id] ?? 0);
 }
 function topUnlock(u){
