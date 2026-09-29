@@ -463,8 +463,8 @@
   .scenebtn:hover { opacity: 1; }
   .scenebtn.on { background: rgba(255,211,77,0.22); color: #ffd34d; opacity: 1; }
 
-  #factoryScene { position: absolute; inset: 0; display: none; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
-  #factoryScene.on { display: flex; }
+  #factoryScene { position: absolute; inset: 0; display: none; overflow: hidden; }
+  #factoryScene.on { display: block; }
   #factoryBg { position: absolute; inset: 0; background: linear-gradient(180deg, #0b0604 0%, #1a1008 55%, #241408 100%); }
   #factoryBg::before { content:""; position: absolute; inset: 0; background:
       linear-gradient(90deg, rgba(255,150,60,0.05) 1px, transparent 1px),
@@ -537,7 +537,7 @@
   #gearL { left: -40px; } #gearR { right: -40px; animation-direction: reverse; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  #conveyor { position: absolute; bottom: 46px; left: 3%; width: 94%; height: 30px; border-radius: 16px; z-index: 2; overflow: hidden; border: 2px solid #4a3426;
+  #conveyor { position: absolute; left: 0; right: 0; bottom: 46px; height: 30px; border-radius: 16px; z-index: 2; overflow: hidden; border: 2px solid #4a3426;
     background: repeating-linear-gradient(90deg, #2b1d13 0 30px, #1d130d 30px 40px);
     box-shadow: 0 10px 24px rgba(0,0,0,0.55), inset 0 -6px 12px rgba(0,0,0,0.4); }
   #conveyor::before { content:""; position: absolute; top: 0; left: -100%; right: -100%; height: 100%; background: repeating-linear-gradient(90deg, rgba(255,211,77,0.25) 0 8px, transparent 8px 40px); animation: convRun 1.6s linear infinite; }
@@ -545,6 +545,40 @@
   #conveyor::after { content:""; position: absolute; inset: 0; border-radius: 16px; box-shadow: inset 0 0 18px rgba(255,150,60,0.15); pointer-events: none; }
   #conveyor .cp { position: absolute; bottom: 2px; font-size: 20px; animation: convMove 2.6s linear forwards; z-index: 3; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.5)); }
   @keyframes convMove { from { left: -24px; } to { left: calc(100% + 10px); } }
+
+  #factoryView { position: absolute; inset: 0; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; scrollbar-color: rgba(255,211,77,0.4) transparent; cursor: grab; }
+  #factoryView.drag { cursor: grabbing; user-select: none; }
+  #factoryView::-webkit-scrollbar { height: 10px; }
+  #factoryView::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+  #factoryView::-webkit-scrollbar-thumb { background: linear-gradient(90deg, rgba(255,211,77,0.5), rgba(255,138,61,0.4)); border-radius: 8px; }
+  #factoryLine { position: relative; height: 100%; }
+  #fMachs { position: relative; width: 100%; height: 100%; pointer-events: none; }
+  #fSteam { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .fmach { position: absolute; bottom: 46px; width: 176px; height: 218px; border-radius: 22px; cursor: pointer; pointer-events: auto;
+    background: linear-gradient(150deg, #5a6a72 0%, #33434c 45%, #202c34 100%);
+    border: 3px solid rgba(255,211,77,0.42); box-shadow: 0 14px 30px rgba(0,0,0,0.6), inset 0 -14px 26px rgba(0,0,0,0.5), inset 0 5px 12px rgba(255,255,255,0.1);
+    transition: transform .07s ease; transform-origin: bottom center; }
+  .fmach:hover { transform: scale(1.05); box-shadow: 0 18px 40px rgba(0,0,0,0.7), 0 0 30px rgba(255,150,60,0.4); }
+  .fmach.jolt { animation: jolt .16s ease; }
+  .fmach::before { content:""; position: absolute; inset: 7px; border: 2px solid rgba(0,0,0,0.35); border-radius: 16px; pointer-events: none; }
+  .fmach .face { position: absolute; inset: 30px 16px; border-radius: 14px; background: repeating-linear-gradient(90deg, #0c1116 0 13px, #1c2730 13px 26px); box-shadow: inset 0 0 20px rgba(0,0,0,0.85), 0 0 18px var(--glow, rgba(255,120,40,0.25)); overflow: hidden; }
+  .fmach .face::after { content:""; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,190,80,0.16) 50%, transparent 70%); background-size: 300% 300%; animation: heatShimmer 2.6s ease-in-out infinite; }
+  .fmach .emoji { position: absolute; top: 8px; left: 0; right: 0; text-align: center; font-size: 44px; filter: drop-shadow(0 0 10px rgba(255,211,77,0.45)); z-index: 4; pointer-events: none; }
+  .fmach .dsp { position: absolute; top: 128px; left: 50%; transform: translateX(-50%); background: #04161d; color: #5dffb0; font-family: Consolas, monospace; font-weight: 700; font-size: 13px; padding: 4px 10px; border-radius: 8px; box-shadow: inset 0 0 10px #0a3a4a, 0 0 10px rgba(93,255,176,0.3); z-index: 5; white-space: nowrap; pointer-events: none; }
+  .fmach .nm { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center; font-size: 13px; font-weight: 800; color: #ffd34d; text-shadow: 0 2px 6px rgba(0,0,0,0.7); z-index: 5; pointer-events: none; }
+  .fmach .flmp { position: absolute; right: 10px; top: 10px; width: 12px; height: 12px; border-radius: 50%; z-index: 5; pointer-events: none; }
+  .fmach .riv { position: absolute; width: 9px; height: 9px; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #8a9aa2, #202c34); box-shadow: inset 0 1px 2px rgba(0,0,0,0.6); z-index: 5; pointer-events: none; }
+  #cogShop { position: absolute; top: 12px; left: 12px; z-index: 32; background: rgba(15,8,3,0.88); border: 1px solid rgba(255,211,77,0.4); border-radius: 14px; padding: 10px 12px; backdrop-filter: blur(6px); min-width: 250px; }
+  #cogShop h4 { margin: 0 0 8px; font-size: 13px; letter-spacing: 1px; color: #ffd34d; }
+  #cogShopRow { display: flex; flex-direction: column; gap: 6px; }
+  .cogBtn { display: flex; align-items: center; gap: 9px; text-align: left; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,211,77,0.25); border-radius: 10px; padding: 7px 10px; cursor: pointer; font-family: inherit; color: #fff; transition: background .12s ease, border-color .12s ease; }
+  .cogBtn:hover { background: rgba(255,211,77,0.14); border-color: #ffd34d; }
+  .cogBtn .ce { font-size: 20px; }
+  .cogBtn .cinfo { flex: 1; min-width: 0; }
+  .cogBtn .cn { font-weight: 700; font-size: 13px; }
+  .cogBtn .cd { font-size: 11px; opacity: .6; }
+  .cogBtn .cprice { font-size: 12px; font-weight: 800; color: #ffd34d; white-space: nowrap; }
+  #factoryHint { position: absolute; right: 14px; bottom: 8px; z-index: 30; font-size: 12px; opacity: .5; pointer-events: none; letter-spacing: .5px; }
 
   #bossOverlay { position: fixed; inset: 0; z-index: 60; display: none; flex-direction: column; background: radial-gradient(ellipse at 50% 0%, #35080c, #0a0204 75%); }
   #bossOverlay.on { display: flex; }
@@ -599,6 +633,7 @@
       <div class="stat"><span>Pizza Gold</span><b id="money">0</b></div>
       <div class="stat"><span>Per Click</span><b id="perClick">1<em id="clickMult"></em></b></div>
       <div class="stat"><span>Per Second</span><b id="perSec">0<em id="secMult"></em></b></div>
+      <div class="stat" id="cogStat"><span>⚙️ Cogs</span><b id="cogs">0</b></div>
     </div>
     <div class="hbtns">
       <button class="hbtn" id="dlcBtn" title="DLC codes">🛒</button>
@@ -633,19 +668,15 @@
         <div class="fPipe" id="fPipeR"></div>
         <div id="fMachines"></div>
         <div id="fLamps"></div>
-        <div id="conveyor"></div>
-        <div id="fSteam"></div>
-        <div id="machine">
-          <div class="gears" id="gearL"></div>
-          <div class="gears" id="gearR"></div>
-          <div class="vTop"></div>
-          <div class="grate"></div>
-          <div class="gauge"></div>
-          <div class="btnRow"><i></i><i></i><i></i></div>
-          <div class="mDisp" id="mDisp">🍕 PRESS TO BAKE</div>
-          <div id="mLamp"></div>
-          <div id="machineGlow"></div>
+        <div id="cogShop"><h4>⚙️ Cog Shop</h4><div id="cogShopRow"></div></div>
+        <div id="factoryView">
+          <div id="factoryLine">
+            <div id="conveyor"></div>
+            <div id="fMachs"></div>
+            <div id="fSteam"></div>
+          </div>
         </div>
+        <div id="factoryHint">◀ drag or scroll ▶</div>
       </div>
       <div id="stage">
         <div id="stageGlow"></div>
@@ -852,6 +883,7 @@ let state = {
   points: 0, rebirths: 0, goldenClicks: 0,
   upgrades: {}, toppings: {}, perks: {},
   machines: {}, daily: { last:'', streak:0 }, dlc: {}, boss: { wins:0, lastHour:'' },
+  coins: 0, cogs: { belt:0, ign:0, gear:0 },
   buffs: { surge:0, rival:0, hype:0 },
   events: { rat:0, rival:0, surge:0, gnome:0, jackpot:0, hype:0 },
   bestCombo: 0, offlineBonus: 0, seconds: 0, lastSeen: Date.now(),
@@ -930,6 +962,7 @@ function clickPower(){
   for(const u of upgrades) if(u.type==='click') p += u.gain * u.count;
   for(const u of toppings)  if(u.type==='tap')   p += u.gain * u.count;
   for(const u of machines)  if(u.type==='click') p += u.gain * u.count;
+  p += (state.cogs && state.cogs.ign) || 0;
   return p * getClickMult() * getBossMult() * buffMult('click');
 }
 function prodPower(){
@@ -937,7 +970,7 @@ function prodPower(){
   for(const u of upgrades) if(u.type==='prod') p += u.gain * u.count;
   for(const u of toppings)  if(u.type==='prod') p += u.gain * u.count;
   for(const u of machines)  if(u.type==='prod') p += u.gain * u.count;
-  return p * getProdMult() * getBossMult() * buffMult('prod');
+  return p * getProdMult() * getBossMult() * buffMult('prod') * (1 + 0.15 * ((state.cogs && state.cogs.gear)||0));
 }
 function totalToppings(){ return Object.values(state.toppings).reduce((a,b)=>a+b,0); }
 function allToppingsBought(){ return Object.values(state.toppings).length >= TOPPINGS.length && Object.values(state.toppings).every(c => c > 0); }
@@ -1412,6 +1445,7 @@ function doRebirth(pp){
   state.rebirths++;
   state.gold = 0; state.totalEarned = 0; state.totalTaps = 0;
   state.upgrades = {}; state.toppings = {}; state.machines = {};
+  state.coins = 0; state.cogs = { belt:0, ign:0, gear:0 };
   if(goldenEl){ goldenEl.remove(); goldenEl = null; }
   sReb();
   confetti();
@@ -1431,8 +1465,97 @@ document.querySelectorAll('.tab').forEach(t=>{
 });
 
 // ================= FACTORY =================
-const machineEl = $('machine'), mDisp = $('mDisp'), conveyor = $('conveyor'),
-      factoryScene = $('factoryScene'), sceneFactory = $('sceneFactory'), sceneBoard = $('sceneBoard');
+const factoryScene = $('factoryScene'), sceneFactory = $('sceneFactory'), sceneBoard = $('sceneBoard'),
+      factoryView = $('factoryView'), factoryLine = $('factoryLine'), fMachs = $('fMachs'),
+      conveyor = $('conveyor'), cogShopRow = $('cogShopRow');
+const F_LINE = [
+  { e:'🍕', n:'Pizza Oven',      c:'#ff8a3d' },
+  { e:'🥖', n:'Dough Mixer',     c:'#caa25a' },
+  { e:'🔥', n:'Fire Tunnel',     c:'#ff5040' },
+  { e:'🧀', n:'Cheese Cannon',   c:'#ffd34d' },
+  { e:'🍄', n:'Topping Extruder', c:'#8ecbff' },
+  { e:'🧂', n:'Salt Blaster',    c:'#d8e2ff' },
+  { e:'🥓', n:'Bacon Slicer',    c:'#ff9d6a' },
+  { e:'🌶️', n:'Pepper Spinner', c:'#ff6b5a' },
+  { e:'🔪', n:'Pizza Cutter',    c:'#c9b8a6' },
+  { e:'📦', n:'Pack-o-matic',    c:'#9a8a6a' },
+  { e:'🚚', n:'Delivery Bay',    c:'#6ab4ff' },
+  { e:'⚡', n:'Turbo Booster',   c:'#ffd34d' },
+];
+const COG_UP = [
+  { id:'belt', e:'🎗️', n:'Turbo Belt',  d:'+25% cogs from taps' },
+  { id:'ign',  e:'🔥', n:'Igniter',      d:'+1 tap power' },
+  { id:'gear', e:'⚙️', n:'Alloy Gears', d:'+15% production' },
+];
+let lineDecorated = false, fDrag = null;
+function machinesOwned(){ return Object.values(state.machines).reduce((a,b)=>a+b,0); }
+function cogMulti(){ return 1 + 0.25 * (state.cogs.belt||0); }
+function cogPerTap(){ return Math.floor(cogMulti()) + (state.cogs.ign||0); }
+function cogPerSec(){ return (state.cogs.gear||0) + Math.floor(machinesOwned()/5); }
+function buildFactoryLine(){
+  if(lineDecorated) return; lineDecorated = true;
+  const W = 320;
+  factoryLine.style.width = (F_LINE.length * W + 120) + 'px';
+  fMachs.innerHTML = '';
+  F_LINE.forEach((m, i)=>{
+    const x = 60 + i * W;
+    const el = document.createElement('div');
+    el.className = 'fmach';
+    el.style.left = x + 'px';
+    el.style.setProperty('--glow', m.c);
+    el.innerHTML = `
+      <div class="emoji">${m.e}</div>
+      <div class="face"></div>
+      <div class="dsp">🍕 ${fmt(state.gold)}</div>
+      <div class="nm">${m.n}</div>
+      <div class="flmp" style="background:${m.c};box-shadow:0 0 10px ${m.c};animation:blink ${0.8 + (i%3)*0.15}s infinite"></div>
+      <i class="riv" style="left:10px;top:12px"></i><i class="riv" style="right:10px;top:12px"></i><i class="riv" style="left:10px;bottom:24px"></i><i class="riv" style="right:10px;bottom:24px"></i>`;
+    el.addEventListener('click', e=>{
+      e.stopPropagation();
+      if(!dlcOpen()){ toast('🏭 The Pizza Factory opens Oct 3!'); sNo(); return; }
+      factoryTap(el);
+    });
+    fMachs.appendChild(el);
+  });
+  factoryView.scrollLeft = 40;
+}
+function factoryTap(el){
+  const r = el.getBoundingClientRect(), ar = area.getBoundingClientRect();
+  el.classList.remove('jolt'); void el.offsetWidth; el.classList.add('jolt');
+  const cx = r.left - ar.left + r.width/2, cy = r.top - ar.top;
+  spawnFSteam(cx, cy + r.height/3);
+  tapPizza(cx, cy + r.height/3);
+  const cnt = cogPerTap();
+  if(cnt > 0){
+    state.coins += cnt;
+    spawnFloat(cx, cy + r.height/2 - 10, '+' + cnt + ' ⚙️');
+  }
+  const p = document.createElement('span');
+  p.className = 'cp'; p.textContent = '🍕';
+  conveyor.appendChild(p);
+  setTimeout(()=>p.remove(), 2600);
+  el.querySelector('.dsp').textContent = '🍕 ' + fmt(state.gold);
+  updateAll();
+}
+function renderCogShop(){
+  cogShopRow.innerHTML = '';
+  COG_UP.forEach(u=>{
+    const lvl = state.cogs[u.id] || 0;
+    const cost = Math.floor(20 * Math.pow(1.7, lvl));
+    const b = document.createElement('button');
+    b.className = 'cogBtn';
+    b.innerHTML = `<span class="ce">${u.e}</span><span class="cinfo"><span class="cn">${u.n} <small style="opacity:.6">Lv${lvl}</small></span><br><span class="cd">${u.d}</span></span><span class="cprice">⚙️ ${fmt(cost)}</span>`;
+    b.addEventListener('click', ()=>{
+      if(state.coins < cost){ sNo(); toast('Need more ⚙️ cogs! Bake on the line!'); return; }
+      state.coins -= cost;
+      state.cogs[u.id] = lvl + 1;
+      sBuy(); toast('⚙️ ' + u.n + ' → Lv' + (lvl+1) + '!');
+      renderCogShop();
+      updateAll();
+    });
+    cogShopRow.appendChild(b);
+  });
+}
 function setScene(mode){
   const isFactory = mode === 'factory';
   factoryScene.classList.toggle('on', isFactory);
@@ -1441,7 +1564,9 @@ function setScene(mode){
   sceneFactory.classList.toggle('on', isFactory);
   if(isFactory){
     buildFactoryDecor();
-    mDisp.textContent = '🍕 '+fmt(state.gold)+' baked';
+    buildFactoryLine();
+    renderCogShop();
+    updateAll();
   }
 }
 let factoryDecorated = false;
@@ -1485,14 +1610,16 @@ function buildFactoryDecor(){
     }
   }, 1500);
 }
-function spawnFSteam(){
+function spawnFSteam(x, y){
   const s = $('fSteam');
+  const b = s.getBoundingClientRect();
+  const lx = x - b.left, ly = y - b.top;
   for(let k=0;k<2;k++){
     const el = document.createElement('div');
     el.className = 'fSteam';
     el.textContent = k ? '✨' : '💨';
-    el.style.left = (44 + Math.random()*16) + '%';
-    el.style.top = (44 + Math.random()*6) + '%';
+    el.style.left = (lx + (Math.random()*20-10)) + 'px';
+    el.style.top = (ly - 20 + Math.random()*16) + 'px';
     el.style.animation = 'steamUp ' + (0.7 + Math.random()*0.5) + 's ease-out forwards';
     el.addEventListener('animationend', ()=>el.remove());
     s.appendChild(el);
@@ -1503,19 +1630,18 @@ sceneFactory.addEventListener('click', ()=>{
   if(!dlcOpen()){ toast('🏭 The Pizza Factory opens Oct 3!'); sNo(); return; }
   setScene('factory');
 });
-machineEl.addEventListener('click', e=>{
-  e.stopPropagation();
-  if(!dlcOpen()){ toast('🏭 The Pizza Factory opens Oct 3!'); sNo(); return; }
-  const r = machineEl.getBoundingClientRect(), ar = area.getBoundingClientRect();
-  machineEl.classList.remove('jolt'); void machineEl.offsetWidth; machineEl.classList.add('jolt');
-  spawnFSteam();
-  tapPizza(r.left - ar.left + r.width/2, r.top - ar.top + r.height/3);
-  const p = document.createElement('span');
-  p.className = 'cp'; p.textContent = '🍕';
-  conveyor.appendChild(p);
-  setTimeout(()=>p.remove(), 2600);
-  mDisp.textContent = '🍕 '+fmt(state.gold)+' baked';
+factoryView.addEventListener('wheel', e=>{
+  factoryView.scrollLeft += e.deltaY || e.deltaX;
+  e.preventDefault();
+}, { passive:false });
+factoryView.addEventListener('pointerdown', e=>{
+  fDrag = { x: e.clientX, sl: factoryView.scrollLeft };
+  factoryView.classList.add('drag');
 });
+window.addEventListener('pointermove', e=>{
+  if(fDrag) factoryView.scrollLeft = fDrag.sl - (e.clientX - fDrag.x);
+});
+window.addEventListener('pointerup', ()=>{ fDrag = null; factoryView.classList.remove('drag'); });
 
 // ================= DAILY REWARD =================
 const dailyBtn = $('dailyBtn');
@@ -1842,7 +1968,7 @@ function toast(msg){
   document.body.appendChild(t);
   setTimeout(()=>t.remove(), 2400);
 }
-let lastShownMoney='', lastShownClick='', lastShownSec='', lastStatsTxt='', lastChips='';
+let lastShownMoney='', lastShownClick='', lastShownSec='', lastStatsTxt='', lastChips='', lastShownCogs='';
 function updateAll(){
   const m = fmt(state.gold);
   if(m !== lastShownMoney){
@@ -1860,6 +1986,11 @@ function updateAll(){
     lastShownSec = ps;
     secEl.firstChild.textContent = ps;
     secEl.classList.remove('pop'); void secEl.offsetWidth; secEl.classList.add('pop');
+  }
+  const cc = fmt(state.coins);
+  if(cc !== lastShownCogs){
+    lastShownCogs = cc;
+    $('cogs').textContent = cc;
   }
   const cm = getClickMult(), sm = getProdMult();
   clickMultEl.textContent = cm > 1.0001 ? ' ×'+cm.toFixed(2) : '';
@@ -1961,6 +2092,10 @@ function secondTick(){
     bossAvail = true;
     bossBtn.classList.add('on');
     toast('🚨 The Pizza Destroyer lurks outside! Defend the factory!');
+  }
+  if(dlcOpen() && cogPerSec() > 0){
+    state.coins += cogPerSec();
+    if(factoryScene.classList.contains('on')) updateAll();
   }
 }
 function updateRing(now){
