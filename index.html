@@ -215,6 +215,10 @@
   .btn.ghost:active { box-shadow: 0 1px 0 #4a24a0; }
   #ppBadge { display: inline-block; background: #ffd34d; color: #3a2415; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 10px; font-size: 13px; }
 
+  #adminRow { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+  .btn.mini { padding: 10px 8px; font-size: 13px; line-height: 1.3; }
+  @media (max-width:760px){ #adminRow { grid-template-columns: 1fr; } }
+
   #modal {
     position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: none;
     align-items: center; justify-content: center; z-index: 200;
@@ -523,7 +527,6 @@
     box-shadow: inset 0 0 26px rgba(0,0,0,0.85), 0 0 22px rgba(255,120,40,0.25); overflow: hidden; }
   #machine .grate::after { content:""; position: absolute; inset: 0; background: linear-gradient(120deg, transparent 30%, rgba(255,190,80,0.18) 50%, transparent 70%); background-size: 300% 300%; animation: heatShimmer 2.4s ease-in-out infinite; }
   @keyframes heatShimmer { 0%,100% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } }
-  .mDisp { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: #04161d; color: #5dffb0; font-family: Consolas, monospace; font-weight: 700; font-size: 14px; padding: 5px 12px; border-radius: 8px; box-shadow: inset 0 0 10px #0a3a4a, 0 0 12px rgba(93,255,176,0.3); z-index: 5; white-space: nowrap; }
   #mLamp { position: absolute; right: 14px; top: 14px; width: 14px; height: 14px; border-radius: 50%; background: #ff5040; box-shadow: 0 0 12px #ff5040; animation: blink .9s infinite; z-index: 5; }
   @keyframes blink { 50% { opacity: .25; } }
   .gauge { position: absolute; left: 20px; bottom: 34px; width: 46px; height: 46px; border-radius: 50%; background: radial-gradient(circle at 50% 40%, #f4f0d8, #8a7a4a 75%); border: 3px solid #1a1410; box-shadow: inset 0 0 8px rgba(0,0,0,0.5); z-index: 4; }
@@ -699,6 +702,7 @@
       <div class="stat" id="cogStat"><span>⚙️ Cogs</span><b id="cogs">0</b></div>
     </div>
     <div class="hbtns">
+      <button class="hbtn" id="adminBtn" title="Admin Panel" style="display:none">👑</button>
       <button class="hbtn" id="dlcBtn" title="DLC codes">🛒</button>
       <button class="hbtn" id="dailyBtn" title="Daily reward">🎁</button>
       <button class="mute" id="muteBtn" title="Sound on/off">🔊</button>
@@ -846,6 +850,24 @@
   </div>
 </div>
 
+<div id="adminModal" class="modalWrap">
+  <div class="modalBox">
+    <h2>👑 Admin Panel</h2>
+    <p>MEGA MODE grants you god powers. Tinker at your own risk →</p>
+    <div id="adminRow">
+      <button class="btn gold mini" data-a="boss">👹 Spawn Factory Boss</button>
+      <button class="btn gold mini" data-a="gold">💵 +1,000,000,000 🍕</button>
+      <button class="btn gold mini" data-a="pts">⭐ +100 Legend Points</button>
+      <button class="btn gold mini" data-a="cogs">⚙️ +10,000 Cogs</button>
+      <button class="btn gold mini" data-a="golden">🍀 Spawn Golden Pizza</button>
+      <button class="btn gold mini" data-a="max">😈 TRUE MEGA MODE</button>
+    </div>
+    <div class="row">
+      <button class="btn ghost" id="adminClose">Close</button>
+    </div>
+  </div>
+</div>
+
 <script>
 // ================= DATA =================
 const UPGRADES = [
@@ -863,6 +885,10 @@ const UPGRADES = [
   { id:'worm',  icon:'🌀', name:'Cheese Wormhole',   desc:'+5000 / second', base: 15000000, type:'prod',  gain: 5000, costMult: 1.16 },
   { id:'god',   icon:'🪽', name:'Hand of Pizza God', desc:'+20000 / second',base: 80000000, type:'prod',  gain: 20000, costMult: 1.16 },
   { id:'crusher',icon:'🗜️', name:'Dough Crusher',     desc:'+60 per tap',    base: 50000000, type:'click', gain: 60,   costMult: 1.20 },
+  { id:'volc',   icon:'🌋', name:'Molten Mantle Oven',desc:'+35 per tap',     base: 3000000,    type:'click', gain: 35,    costMult: 1.20 },
+  { id:'glass',  icon:'💠', name:'Glass Dome Oven',   desc:'+200 per tap',   base: 120000000,  type:'click', gain: 200,   costMult: 1.20 },
+  { id:'flux',   icon:'⚡', name:'Flux Heat Coil',    desc:'+2500 per tap',  base: 1500000000, type:'click', gain: 2500,  costMult: 1.20 },
+  { id:'zeus',   icon:'💥', name:'Zeus Oven',         desc:'+12500 per tap', base: 9000000000, type:'click', gain: 12500, costMult: 1.20 },
   { id:'ice',   icon:'🧊', name:'Crust Glacier',     desc:'+2500 / second', base: 400000000,  type:'prod',  gain: 2500,  costMult: 1.16 },
   { id:'nova',  icon:'⭐', name:'Pizza Supernova',    desc:'+10000 / second',base: 2000000000, type:'prod',  gain: 10000, costMult: 1.16 },
   { id:'black', icon:'🕳️', name:'Dough Singularity',  desc:'+50000 / second',base: 10000000000, type:'prod',  gain: 50000, costMult: 1.16 },
@@ -1049,7 +1075,7 @@ function rebirthQty(){ return Math.floor(Math.pow(state.totalEarned / 1e6, 0.5))
 
 function unlockCheck(u){
   const t = state.totalEarned;
-  const map = { chef:100, mixer:500, robot:2000, sauce:5000, kin:15000, cone:50000, drone:150000, portal:800000, mine:4000000, sun:20000000, worm:150000000, god:900000000, crusher:250000000, ice:3000000000, nova:15000000000, black:70000000000, univ:400000000000 };
+  const map = { chef:100, mixer:500, robot:2000, sauce:5000, kin:15000, cone:50000, drone:150000, portal:800000, mine:4000000, sun:20000000, worm:150000000, god:900000000, crusher:250000000, volc:15000000, glass:900000000, flux:9000000000, zeus:60000000000, ice:3000000000, nova:15000000000, black:70000000000, univ:400000000000 };
   return t >= (map[u.id] ?? 0);
 }
 function topUnlock(u){
@@ -1809,6 +1835,7 @@ function redeemDLC(raw){
     sGold(); confetti(); buildAll(); renderToppings(); renderSteam(); renderChefs(); checkAchievements();
     toast('🌋 MEGA MODE! EVERYTHING maxed — +50 Legend Points!');
     showFutureBtn();
+    showAdminBtn();
     $('dlcModal').classList.remove('on');
     showFuture();
     updateAll();
@@ -1818,6 +1845,44 @@ function redeemDLC(raw){
 }
 $('dlcGo').addEventListener('click', ()=>redeemDLC($('dlcInput').value));
 $('dlcInput').addEventListener('keydown', e=>{ if(e.key === 'Enter') redeemDLC($('dlcInput').value); });
+
+// ================= ADMIN PANEL (MEGA MODE) =================
+function adminOK(){ return state.dlc.mega === true || location.search.indexOf('admin') !== -1; }
+function showAdminBtn(){ $('adminBtn').style.display = 'inline-block'; }
+$('adminBtn').addEventListener('click', ()=>$('adminModal').classList.add('on'));
+$('adminClose').addEventListener('click', ()=>$('adminModal').classList.remove('on'));
+$('adminRow').addEventListener('click', e=>{
+  const b = e.target.closest('[data-a]');
+  if(!b) return;
+  const a = b.getAttribute('data-a');
+  if(a === 'boss'){
+    $('adminModal').classList.remove('on');
+    state.boss.lastHour = ''; bossAvail = false; startBoss();
+    return;
+  }
+  if(a === 'gold'){
+    state.gold += 1e9; state.totalEarned += 1e9;
+    sGold(); spawnFloat(area.clientWidth/2 + (Math.random()*80-40), area.clientHeight/2, '+1,000,000,000 🍕');
+    toast('💵 +1,000,000,000 pizza gold!');
+  } else if(a === 'pts'){
+    state.points += 100;
+    toast('⭐ +100 Legend Points!');
+  } else if(a === 'cogs'){
+    state.coins = (state.coins||0) + 10000;
+    toast('⚙️ +10,000 Cogs to the factory!');
+  } else if(a === 'golden'){
+    spawnGolden();
+    toast('🍀 A Golden Pizza appears!');
+  } else if(a === 'max'){
+    for(const u of UPGRADES) state.upgrades[u.id] = Math.max(state.upgrades[u.id]||0, 100);
+    for(const t of TOPPINGS) state.toppings[t.id] = Math.max(state.toppings[t.id]||0, 100);
+    for(const m of MACHINES) state.machines[m.id] = Math.max(state.machines[m.id]||0, 100);
+    state.points += 100; state.gold += 1e15; state.totalEarned += 1e15;
+    buildAll(); renderToppings(); renderSteam(); renderChefs();
+    sGold(); confetti(); toast('😈 TRUE MEGA MODE! Everything cranked to 100.');
+  }
+  buildAll(); updateAll();
+});
 
 // ================= BOSS =================
 const bossOv = $('bossOverlay'), bossPane = $('bossPane'), bossPizzaEl = $('bossPizza'),
@@ -2269,6 +2334,7 @@ for(let i=0;i<10;i++){
 buildAll();
 dailyBounce();
 if(state.dlc.mega) showFutureBtn();
+if(adminOK()) showAdminBtn();
 updateAll();
 if(!dlcOpen()) toast('🗓️ Season content (Factory, Boss & Daily Rewards) opens Oct 3! DLC codes work now — hint: try "release".');
 requestAnimationFrame(loop);
