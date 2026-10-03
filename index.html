@@ -974,7 +974,7 @@ const SAVE_KEY = 'pizzaClickerSave2';
 // ================= STATE =================
 let state = {
   gold: 0, totalEarned: 0, totalTaps: 0,
-  points: 0, rebirths: 0, goldenClicks: 0,
+  points: 0, pointsEver: 0, rebirths: 0, goldenClicks: 0,
   upgrades: {}, toppings: {}, perks: {},
   machines: {}, daily: { last:'', streak:0 }, dlc: {}, boss: { wins:0, lastHour:'' },
   coins: 0, cogs: { belt:0, ign:0, gear:0 },
@@ -1027,8 +1027,8 @@ function fmt(n){
   return n.toFixed(2) + units[i];
 }
 
-function getClickMult(){ return 1 + state.points*0.05 + (state.perks.slice||0)*0.10; }
-function getProdMult(){  return 1 + state.points*0.05 + (state.perks.time||0)*0.10; }
+function getClickMult(){ return 1 + (state.pointsEver||0)*0.05 + (state.perks.slice||0)*0.10; }
+function getProdMult(){  return 1 + (state.pointsEver||0)*0.05 + (state.perks.time||0)*0.10; }
 function getLuckMult(){  return 1 + (state.perks.luck||0)*0.25; }
 function getBossMult(){  return 1 + Math.min(state.boss.wins||0, 5) * 0.02; }
 
@@ -1535,7 +1535,7 @@ function openModal(pp){
 }
 function doRebirth(pp){
   $('modal').classList.remove('on');
-  state.points += pp;
+  state.points += pp; state.pointsEver = (state.pointsEver||0) + pp;
   state.rebirths++;
   state.gold = 0; state.totalEarned = 0; state.totalTaps = 0;
   state.upgrades = {}; state.toppings = {}; state.machines = {};
@@ -1819,7 +1819,7 @@ function redeemDLC(raw){
   } else if(code === 'chefrat'){
     if(state.dlc.chefrat){ sNo(); toast('🐀 Secret DLC already redeemed!'); return; }
     state.dlc.chefrat = true;
-    state.points += 2;
+    state.points += 2; state.pointsEver = (state.pointsEver||0) + 2;
     sGold(); confetti(); buildAll(); checkAchievements();
     toast('🕵️ Secret DLC found! Holographic Oven added + 2 Legend Points.');
     $('dlcModal').classList.remove('on');
@@ -1830,7 +1830,7 @@ function redeemDLC(raw){
     for(const u of UPGRADES) state.upgrades[u.id] = Math.max(state.upgrades[u.id]||0, 50);
     for(const t of TOPPINGS) state.toppings[t.id] = Math.max(state.toppings[t.id]||0, 20);
     for(const m of MACHINES) state.machines[m.id] = Math.max(state.machines[m.id]||0, 50);
-    state.points += 50;
+    state.points += 50; state.pointsEver = (state.pointsEver||0) + 50;
     state.gold += 1e12; state.totalEarned += 1e12;
     sGold(); confetti(); buildAll(); renderToppings(); renderSteam(); renderChefs(); checkAchievements();
     toast('🌋 MEGA MODE! EVERYTHING maxed — +50 Legend Points!');
@@ -1865,7 +1865,7 @@ $('adminRow').addEventListener('click', e=>{
     sGold(); spawnFloat(area.clientWidth/2 + (Math.random()*80-40), area.clientHeight/2, '+1,000,000,000 🍕');
     toast('💵 +1,000,000,000 pizza gold!');
   } else if(a === 'pts'){
-    state.points += 100;
+    state.points += 100; state.pointsEver = (state.pointsEver||0) + 100;
     toast('⭐ +100 Legend Points!');
   } else if(a === 'cogs'){
     state.coins = (state.coins||0) + 10000;
@@ -1877,7 +1877,7 @@ $('adminRow').addEventListener('click', e=>{
     for(const u of UPGRADES) state.upgrades[u.id] = Math.max(state.upgrades[u.id]||0, 100);
     for(const t of TOPPINGS) state.toppings[t.id] = Math.max(state.toppings[t.id]||0, 100);
     for(const m of MACHINES) state.machines[m.id] = Math.max(state.machines[m.id]||0, 100);
-    state.points += 100; state.gold += 1e15; state.totalEarned += 1e15;
+    state.points += 100; state.pointsEver = (state.pointsEver||0) + 100; state.gold += 1e15; state.totalEarned += 1e15;
     buildAll(); renderToppings(); renderSteam(); renderChefs();
     sGold(); confetti(); toast('😈 TRUE MEGA MODE! Everything cranked to 100.');
   }
@@ -2279,7 +2279,7 @@ function offlineProd(s){
   let p = 0;
   for(const u of UPGRADES) if(u.type==='prod') p += u.gain * (s.upgrades[u.id]||0);
   for(const t of TOPPINGS) if(t.type==='prod') p += t.gain * (s.toppings[t.id]||0);
-  return p * (1 + (s.points||0)*0.05 + ((s.perks&&s.perks.time)||0)*0.10);
+  return p * (1 + (s.pointsEver||s.points||0)*0.05 + ((s.perks&&s.perks.time)||0)*0.10);
 }
 function save(){
   state.lastSeen = Date.now();
@@ -2291,6 +2291,7 @@ function load(){
     if(raw){
       const s = JSON.parse(raw);
       state = Object.assign(state, s);
+      if(state.pointsEver == null) state.pointsEver = state.points || 0;
       const away = (Date.now() - (s.lastSeen || Date.now())) / 1000;
       if(away > 60 && offlineProd(s) > 0){
         const eff = 0.25 * (1 + 0.25 * ((s.perks&&s.perks.yeast)||0));
